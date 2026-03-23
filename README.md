@@ -4,23 +4,60 @@
 
 ## 环境要求
 
-- Python 3.12+
-- [uv](https://docs.astral.sh/uv/) - 2026年推荐的 Python 包管理器
-- 一个 `Readwise Reader` API Token
-- 一个 `OpenAI` 兼容模型配置（智谱、MiniMax 等）
+- Python 3.12+（版本声明见 `.python-version`；若本机未安装，可用 `uv python install` 拉取）
+- **[uv](https://docs.astral.sh/uv/)** — **请优先使用 uv** 管理本项目的依赖与运行命令
+- `Readwise Reader` API Token
+- `OpenAI` 兼容模型配置（智谱、MiniMax 等）
 
 ## 安装
 
+### 1. 安装 uv（若尚未安装）
+
+**优先安装 uv**，再克隆/进入本项目。官方文档：<https://docs.astral.sh/uv/getting-started/installation/>
+
+常用方式：
+
+**Linux / macOS：**
+
 ```bash
-# 克隆或进入项目目录
-cd readwise-digest
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-# uv 会自动创建虚拟环境并安装依赖
+安装完成后按提示将 `uv` 加入 `PATH`（脚本结尾一般会说明，例如重新打开终端或 `source` 其打印的配置文件）。
+
+**macOS（Homebrew）：**
+
+```bash
+brew install uv
+```
+
+**Windows（PowerShell）：**
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+验证：
+
+```bash
+uv --version
+```
+
+### 2. 安装本项目依赖
+
+```bash
+# 进入项目根目录（仓库名以你本地为准）
+cd wyRss
+
+# 创建虚拟环境并安装依赖（uv 会按 .python-version 选用 Python）
 uv sync
+```
 
-# 复制环境变量模板
+**环境变量不是必须复制模板才能用。** 程序通过 `python-dotenv` 在项目目录下查找 `.env`：若存在则把其中的键加载到进程环境里；你也可以在 shell、IDE 或 CI 里直接导出同名变量，**不创建 `.env` 文件同样可以运行**。复制模板只是本地开发时比较方便：
+
+```bash
+# 可选：从模板生成 .env，再按需编辑
 cp .env.example .env
-# 然后编辑 .env 填入你的 API 密钥
 ```
 
 ## 快速开始
@@ -29,8 +66,23 @@ cp .env.example .env
 # 运行日报生成（自动使用 .venv）
 uv run python -m src.main
 
-# 或者使用项目命令
+# 或使用项目注册的命令（等价）
 uv run readwise-digest
+```
+
+### 命令行参数（可选）
+
+| 参数 | 说明 |
+|------|------|
+| `--hours N` | 覆盖统计窗口（小时），默认见 `.env` / `DIGEST_HOURS` |
+| `--top-n N` | 覆盖最终入选篇数 |
+| `--candidate-limit N` | 覆盖进入 LLM 打分的候选上限 |
+| `--log-level` | `DEBUG` / `INFO` / `WARNING` / `ERROR`，默认 `INFO` |
+
+示例：
+
+```bash
+uv run python -m src.main --hours 48 --top-n 15 --log-level INFO
 ```
 
 ## 开发工作流
@@ -58,13 +110,13 @@ uv sync --locked
 ## 项目结构
 
 ```
-readwise-digest/
+项目根目录/
 ├── pyproject.toml          # 项目配置和依赖声明
 ├── uv.lock                 # 精确版本锁定（提交到 git）
-├── .python-version          # Python 版本声明
+├── .python-version         # Python 版本声明
 ├── .venv/                  # uv 自动创建的虚拟环境
-├── .env                    # 环境变量（不提交到 git）
-├── .env.example            # 环境变量模板
+├── .env                    # 本地环境变量（可选，不提交到 git）
+├── .env.example            # 环境变量说明与模板
 ├── README.md
 ├── src/
 │   ├── clients/
@@ -85,7 +137,14 @@ readwise-digest/
 
 ## 配置
 
-编辑 `.env` 文件配置你的 API 密钥：
+运行时统一从 **进程环境变量** 读取：`load_dotenv()` 会把项目目录下的 `.env` 合并进环境（默认**不会**用 `.env` 覆盖已在环境中设置的变量）。因此本地文件与 CI/系统导出变量两种方式都支持。
+
+**必填（至少其一方式提供）：**
+
+- `READWISE_TOKEN`
+- `RSS_LLM_API_KEY`、`RSS_LLM_MODEL`
+
+**LLM 相关命名（推荐）：**
 
 ```env
 # Readwise
@@ -97,28 +156,18 @@ RSS_LLM_BASE_URL=https://api.minimaxi.com/v1
 RSS_LLM_MODEL=MiniMax-M2.5
 ```
 
-其他配置选项见 `.env.example`。
+若未设置上述 `RSS_LLM_*`，程序会**回退**读取旧名：`LLM_API_KEY`、`LLM_BASE_URL`、`LLM_MODEL`，便于迁移旧 `.env`。
+
+其余选项（时间窗口、候选数、输出目录等）见 `.env.example`；输出目录由 `DIGEST_OUTPUT_DIR` 控制，默认 `output/`。
 
 ## 为什么使用 uv？
 
-本项目采用 **uv** 作为包管理工具，这是 2026 年 Python 生态的最佳实践：
+本项目以 **uv** 为唯一推荐的工具链：
 
-- **速度**：比 pip 快 10-100 倍
-- **自动虚拟环境管理**：无需手动 `source .venv/bin/activate`
-- **原生 lockfile**：`uv.lock` 确保跨机器完全一致
-- **零配置**：自动处理 Python 版本和虚拟环境
-
-## 迁移自 pip
-
-如果你熟悉传统的 pip + venv 工作流：
-
-| 传统方式 | uv 方式 |
-|---------|--------|
-| `python -m venv .venv` | `uv sync`（自动创建） |
-| `source .venv/bin/activate` | `uv run`（自动使用） |
-| `pip install -r requirements.txt` | `uv sync` |
-| `pip install package` | `uv add package` |
-| `pip freeze > requirements.txt` | `uv lock` |
+- **速度快**：依赖解析与安装显著快于传统方案
+- **自动虚拟环境**：无需手动 `source .venv/bin/activate`
+- **原生 lockfile**：`uv.lock` 保证各环境依赖版本一致
+- **一条命令运行**：`uv run …` 始终在正确环境中执行
 
 ## CI/CD 最佳实践
 
@@ -136,15 +185,17 @@ RSS_LLM_MODEL=MiniMax-M2.5
   run: uv run pytest tests/unit -v
 ```
 
+在流水线中通常用 **密钥仓库 / Environment** 注入 `READWISE_TOKEN`、`RSS_LLM_API_KEY` 等，无需提交 `.env`。
+
 ## 输出
 
-日报生成后会保存到 `output/` 目录：
+成功运行后，日报写入 `DIGEST_OUTPUT_DIR`（默认 `output/`），文件名格式为：
 
+```text
+AI-digest_YYYYMMDD_HHMMSS.md
 ```
-output/
-├── readwise-digest-2026-03-19.md
-└── readwise-digest-2026-03-19-test.md
-```
+
+其中时间戳为 **UTC**，与日志中的生成时间一致。
 
 ## 扩展功能
 
