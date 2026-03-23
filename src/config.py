@@ -28,6 +28,15 @@ def _get_float(name: str, default: float) -> float:
     return float(value)
 
 
+def _env_str_non_empty(*names: str) -> str:
+    """First non-empty stripped value among given env var names."""
+    for name in names:
+        value = os.getenv(name)
+        if value is not None and value.strip():
+            return value.strip()
+    return ""
+
+
 @dataclass(slots=True)
 class Settings:
     readwise_token: str
@@ -38,6 +47,7 @@ class Settings:
     request_timeout_seconds: int
     digest_hours: int
     digest_candidate_limit: int
+    digest_pre_score_limit: int
     digest_top_n: int
     digest_output_dir: Path
     digest_language: str
@@ -46,6 +56,7 @@ class Settings:
     llm_base_url: str
     llm_model: str
     llm_timeout_seconds: int
+    llm_concurrency: int
     llm_temperature: float
     llm_max_input_chars: int
 
@@ -54,15 +65,15 @@ class Settings:
         load_dotenv()
 
         readwise_token = os.getenv("READWISE_TOKEN", "").strip()
-        llm_api_key = os.getenv("LLM_API_KEY", "").strip()
-        llm_model = os.getenv("LLM_MODEL", "").strip()
+        llm_api_key = _env_str_non_empty("RSS_LLM_API_KEY", "LLM_API_KEY")
+        llm_model = _env_str_non_empty("RSS_LLM_MODEL", "LLM_MODEL")
 
         missing = [
             name
             for name, value in {
                 "READWISE_TOKEN": readwise_token,
-                "LLM_API_KEY": llm_api_key,
-                "LLM_MODEL": llm_model,
+                "RSS_LLM_API_KEY": llm_api_key,
+                "RSS_LLM_MODEL": llm_model,
             }.items()
             if not value
         ]
@@ -79,6 +90,7 @@ class Settings:
             request_timeout_seconds=_get_int("REQUEST_TIMEOUT_SECONDS", 30),
             digest_hours=_get_int("DIGEST_HOURS", 24),
             digest_candidate_limit=_get_int("DIGEST_CANDIDATE_LIMIT", 30),
+            digest_pre_score_limit=_get_int("DIGEST_PRE_SCORE_LIMIT", 20),
             digest_top_n=_get_int("DIGEST_TOP_N", 10),
             digest_output_dir=Path(os.getenv("DIGEST_OUTPUT_DIR", "output")),
             digest_language=os.getenv("DIGEST_LANGUAGE", "中文").strip() or "中文",
@@ -87,9 +99,13 @@ class Settings:
                 "信息价值优先，其次考虑新颖度、可执行性和与技术/AI资讯的相关性。",
             ).strip(),
             llm_api_key=llm_api_key,
-            llm_base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
+            llm_base_url=(
+                _env_str_non_empty("RSS_LLM_BASE_URL", "LLM_BASE_URL")
+                or "https://api.openai.com/v1"
+            ).rstrip("/"),
             llm_model=llm_model,
             llm_timeout_seconds=_get_int("LLM_TIMEOUT_SECONDS", 60),
+            llm_concurrency=_get_int("LLM_CONCURRENCY", 1),
             llm_temperature=_get_float("LLM_TEMPERATURE", 0.2),
             llm_max_input_chars=_get_int("LLM_MAX_INPUT_CHARS", 6000),
         )

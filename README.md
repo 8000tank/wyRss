@@ -92,9 +92,9 @@ readwise-digest/
 READWISE_TOKEN=your_readwise_token
 
 # LLM（MiniMax 示例）
-LLM_API_KEY=your_minimax_api_key
-LLM_BASE_URL=https://api.minimaxi.com/v1
-LLM_MODEL=MiniMax-M2.5
+RSS_LLM_API_KEY=your_minimax_api_key
+RSS_LLM_BASE_URL=https://api.minimaxi.com/v1
+RSS_LLM_MODEL=MiniMax-M2.5
 ```
 
 其他配置选项见 `.env.example`。

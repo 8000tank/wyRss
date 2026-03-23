@@ -8,6 +8,7 @@ import pytest
 
 from src.models import Article, ScoredArticle
 from src.renderers.markdown_renderer import (
+    _escape_md_table_cell,
     _estimate_reading_time,
     _get_score_stars,
     render_markdown,
@@ -28,6 +29,11 @@ class TestUtilityFunctions:
         """Test reading time estimation fallback."""
         assert _estimate_reading_time(None) == "2分钟"
         assert _estimate_reading_time(0) == "2分钟"
+
+    def test_escape_md_table_cell(self) -> None:
+        """表格单元格中的 | 必须转义，否则会拆列。"""
+        assert _escape_md_table_cell("a|b") == r"a\|b"
+        assert _escape_md_table_cell("a\nb") == "a b"
 
     def test_get_score_stars(self) -> None:
         """Test star rating based on score."""
@@ -121,6 +127,48 @@ class TestRenderMarkdown:
         assert "阅读原文" in markdown
         assert "摘要" in markdown
         assert "入选理由" in markdown
+
+    def test_render_quick_browse_title_with_pipe(self) -> None:
+        """标题中的 | 会误解析为表格列分隔符，应转义。"""
+        generated_at = datetime(2024, 1, 15, 10, 30, tzinfo=timezone.utc)
+        article = Article(
+            id="pipe-001",
+            title="Pipe|In|Title",
+            url="https://example.com/p",
+            source_url=None,
+            author="A",
+            source="S",
+            category=None,
+            location=None,
+            site_name="Site",
+            word_count=300,
+            reading_time=None,
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc),
+            published_date=None,
+            summary="S",
+            image_url=None,
+            notes=None,
+            reading_progress=None,
+        )
+        scored = ScoredArticle(
+            article=article,
+            overall_score=70,
+            relevance_score=70,
+            novelty_score=70,
+            actionability_score=70,
+            summary="X",
+            recommendation="Y",
+            keywords=[],
+        )
+        markdown = render_markdown(
+            generated_at=generated_at,
+            hours=24,
+            fetched_count=1,
+            candidate_count=1,
+            scored_articles=[scored],
+        )
+        assert "[Pipe\\|In\\|Title](#1)" in markdown
 
     def test_render_multiple_articles(self) -> None:
         """Test rendering multiple articles with correct structure."""
@@ -242,7 +290,7 @@ class TestWriteMarkdown:
         output_path = write_markdown(tmp_path, generated_at, content)
 
         assert output_path.exists()
-        assert output_path.name == "readwise-digest-2024-01-15.md"
+        assert output_path.name == "AI-digest_20240115_103000.md"
         assert output_path.read_text(encoding="utf-8") == content
 
     def test_write_creates_directories(self, tmp_path: Path) -> None:

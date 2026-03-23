@@ -16,6 +16,11 @@ from src.config import Settings
 @pytest.fixture
 def real_llm_client() -> LLMClient:
     """Create an LLM client using real environment variables."""
+    if not (
+        os.getenv("RSS_LLM_API_KEY", "").strip()
+        or os.getenv("LLM_API_KEY", "").strip()
+    ):
+        pytest.skip("RSS_LLM_API_KEY (or legacy LLM_API_KEY) not set")
     settings = Settings.from_env()
     return LLMClient(
         api_key=settings.llm_api_key,
@@ -159,8 +164,11 @@ Readwise摘要: 一项新的AI研究展示了显著的性能提升
 
 
 @pytest.mark.skipif(
-    not os.getenv("LLM_API_KEY"),
-    reason="LLM_API_KEY not set"
+    not (
+        os.getenv("RSS_LLM_API_KEY", "").strip()
+        or os.getenv("LLM_API_KEY", "").strip()
+    ),
+    reason="RSS_LLM_API_KEY (or legacy LLM_API_KEY) not set",
 )
 def test_llm_configuration_loaded() -> None:
     """Test that LLM configuration can be loaded."""

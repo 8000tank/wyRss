@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 from typing import Any
 
 import requests
@@ -21,16 +22,22 @@ class LLMClient:
         self.model = model
         self.timeout_seconds = timeout_seconds
         self.temperature = temperature
-        self.session = requests.Session()
-        self.session.headers.update(
-            {
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            }
-        )
+        self._headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+        self._thread_local = threading.local()
+
+    def _get_session(self) -> requests.Session:
+        session = getattr(self._thread_local, "session", None)
+        if session is None:
+            session = requests.Session()
+            session.headers.update(self._headers)
+            self._thread_local.session = session
+        return session
 
     def chat(self, *, system_prompt: str, user_prompt: str) -> str:
-        response = self.session.post(
+        response = self._get_session().post(
             f"{self.base_url}/chat/completions",
             timeout=self.timeout_seconds,
             json={

@@ -1,6 +1,8 @@
 """Unit tests for article ranking pipeline."""
 from __future__ import annotations
 
+import threading
+import time
 from datetime import datetime, timezone
 from unittest.mock import MagicMock
 
@@ -211,3 +213,81 @@ class TestScoreArticles:
         assert len(result) == 1
         assert result[0].overall_score == 50  # Default fallback
         assert "LLM 评分失败" in result[0].summary
+
+    def test_score_articles_uses_configured_concurrency(self, sample_articles_list: list[Article]) -> None:
+        """Test score_articles runs multiple LLM calls concurrently."""
+
+        class SlowConcurrentLLMClient:
+            def __init__(self) -> None:
+                self.lock = threading.Lock()
+                self.active_calls = 0
+                self.max_active_calls = 0
+
+            def chat_json(self, *, system_prompt, user_prompt):
+                with self.lock:
+                    self.active_calls += 1
+                    self.max_active_calls = max(self.max_active_calls, self.active_calls)
+
+                time.sleep(0.05)
+
+                with self.lock:
+                    self.active_calls -= 1
+
+                return {
+                    "overall_score": 80,
+                    "relevance_score": 80,
+                    "novelty_score": 80,
+                    "actionability_score": 80,
+                    "summary": "Summary",
+                    "recommendation": "Rec",
+                    "keywords": [],
+                }
+
+        llm_client = SlowConcurrentLLMClient()
+        result = score_articles(
+            sample_articles_list[:4],
+            llm_client=llm_client,
+            max_input_chars=1000,
+            digest_language="中文",
+            scoring_focus="Test focus",
+            top_n=4,
+            llm_concurrency=2,
+        )
+
+        assert len(result) == 4
+        assert llm_client.max_active_calls >= 2
+
+    def test_score_articles_fallback_on_error_with_concurrency(
+        self,
+        sample_articles_list: list[Article],
+    ) -> None:
+        """Test concurrent scoring still falls back for failed requests."""
+
+        class PartiallyFailingLLMClient:
+            def chat_json(self, *, system_prompt, user_prompt):
+                if "Test Article 2" in user_prompt:
+                    raise RuntimeError("simulated failure")
+                return {
+                    "overall_score": 80,
+                    "relevance_score": 80,
+                    "novelty_score": 80,
+                    "actionability_score": 80,
+                    "summary": "Summary",
+                    "recommendation": "Rec",
+                    "keywords": [],
+                }
+
+        result = score_articles(
+            sample_articles_list[:3],
+            llm_client=PartiallyFailingLLMClient(),
+            max_input_chars=1000,
+            digest_language="中文",
+            scoring_focus="Test focus",
+            top_n=3,
+            llm_concurrency=2,
+        )
+
+        assert len(result) == 3
+        fallback_items = [item for item in result if item.raw_response is None]
+        assert len(fallback_items) == 1
+        assert fallback_items[0].overall_score == 50

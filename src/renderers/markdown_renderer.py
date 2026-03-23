@@ -14,6 +14,11 @@ def _estimate_reading_time(word_count: int | None) -> str:
     return f"{minutes}分钟"
 
 
+def _escape_md_table_cell(text: str) -> str:
+    """转义会破坏 GFM 管道表格的字符（标题中常含 `|`）。"""
+    return text.replace("\n", " ").replace("|", "\\|")
+
+
 def _get_score_stars(score: int) -> str:
     """根据评分返回星级标记。"""
     if score >= 90:
@@ -79,10 +84,11 @@ def render_markdown(
     for index, item in enumerate(scored_articles, start=1):
         article = item.article
         title_short = article.title[:30] + "..." if len(article.title) > 30 else article.title
+        title_cell = _escape_md_table_cell(title_short)
         reading_time = _estimate_reading_time(article.word_count)
         score_stars = _get_score_stars(item.overall_score)
         lines.append(
-            f"| {index} | [{title_short}](#{index}) | {score_stars} {item.overall_score} | {reading_time} |"
+            f"| {index} | [{title_cell}](#{index}) | {score_stars} {item.overall_score} | {reading_time} |"
         )
     lines.append("")
 

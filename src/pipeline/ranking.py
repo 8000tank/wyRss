@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 from src.clients.llm_client import LLMClient
@@ -46,6 +47,39 @@ def _fallback_scored_article(article: Article) -> ScoredArticle:
     )
 
 
+def _score_single_article(
+    article: Article,
+    *,
+    llm_client: LLMClient,
+    system_prompt: str,
+    max_input_chars: int,
+    digest_language: str,
+    scoring_focus: str,
+) -> ScoredArticle:
+    user_prompt = (
+        f"输出语言: {digest_language}\n"
+        f"排序目标: {scoring_focus}\n"
+        "请重点判断这篇文章是否值得进入今天的资讯日报。\n\n"
+        f"{_build_article_payload(article, max_input_chars)}"
+    )
+
+    try:
+        payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+        return ScoredArticle(
+            article=article,
+            overall_score=int(payload["overall_score"]),
+            relevance_score=int(payload["relevance_score"]),
+            novelty_score=int(payload["novelty_score"]),
+            actionability_score=int(payload["actionability_score"]),
+            summary=str(payload["summary"]).strip(),
+            recommendation=str(payload["recommendation"]).strip(),
+            keywords=_coerce_keywords(payload.get("keywords")),
+            raw_response=str(payload),
+        )
+    except Exception:
+        return _fallback_scored_article(article)
+
+
 def score_articles(
     articles: list[Article],
     *,
@@ -54,6 +88,7 @@ def score_articles(
     digest_language: str,
     scoring_focus: str,
     top_n: int,
+    llm_concurrency: int = 1,
 ) -> list[ScoredArticle]:
     system_prompt = (
         "你是一名严谨的资讯编辑。"
@@ -64,32 +99,34 @@ def score_articles(
         "keywords 是字符串数组，最多 5 个。"
     )
 
-    results: list[ScoredArticle] = []
-    for article in articles:
-        user_prompt = (
-            f"输出语言: {digest_language}\n"
-            f"排序目标: {scoring_focus}\n"
-            "请重点判断这篇文章是否值得进入今天的资讯日报。\n\n"
-            f"{_build_article_payload(article, max_input_chars)}"
-        )
-
-        try:
-            payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
-            results.append(
-                ScoredArticle(
-                    article=article,
-                    overall_score=int(payload["overall_score"]),
-                    relevance_score=int(payload["relevance_score"]),
-                    novelty_score=int(payload["novelty_score"]),
-                    actionability_score=int(payload["actionability_score"]),
-                    summary=str(payload["summary"]).strip(),
-                    recommendation=str(payload["recommendation"]).strip(),
-                    keywords=_coerce_keywords(payload.get("keywords")),
-                    raw_response=str(payload),
+    concurrency = max(1, llm_concurrency)
+    if concurrency == 1 or len(articles) <= 1:
+        results = [
+            _score_single_article(
+                article,
+                llm_client=llm_client,
+                system_prompt=system_prompt,
+                max_input_chars=max_input_chars,
+                digest_language=digest_language,
+                scoring_focus=scoring_focus,
+            )
+            for article in articles
+        ]
+    else:
+        with ThreadPoolExecutor(max_workers=min(concurrency, len(articles))) as executor:
+            results = list(
+                executor.map(
+                    lambda article: _score_single_article(
+                        article,
+                        llm_client=llm_client,
+                        system_prompt=system_prompt,
+                        max_input_chars=max_input_chars,
+                        digest_language=digest_language,
+                        scoring_focus=scoring_focus,
+                    ),
+                    articles,
                 )
             )
-        except Exception:
-            results.append(_fallback_scored_article(article))
 
     results.sort(
         key=lambda item: (

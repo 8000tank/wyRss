@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 import pytest
 
 from src.models import Article
-from src.pipeline.filtering import filter_articles
+from src.pipeline.filtering import filter_articles, select_diverse_candidates
 
 
 class TestFiltering:
@@ -244,3 +244,104 @@ class TestFiltering:
         )
 
         assert len(result) == 3
+
+    def test_select_diverse_candidates_balances_authors_when_source_same(self) -> None:
+        """Test author diversity is preferred when all articles share one source."""
+        now = datetime.now(timezone.utc)
+        articles = [
+            Article(
+                id=f"article-{index}",
+                title=f"Article {index}",
+                url=f"https://example.com/{index}",
+                source_url=None,
+                author=author,
+                source="Weixin Official Accounts Platform",
+                category="article",
+                location="feed",
+                site_name="Weixin Official Accounts Platform",
+                word_count=None,
+                reading_time=None,
+                created_at=now - timedelta(minutes=index),
+                updated_at=now - timedelta(minutes=index),
+                published_date=None,
+                summary=None,
+                image_url=None,
+                notes=None,
+                reading_progress=None,
+            )
+            for index, author in enumerate(
+                ["Author A", "Author A", "Author A", "Author B", "Author B", "Author C"],
+                start=1,
+            )
+        ]
+
+        result = select_diverse_candidates(articles, max_candidates=3)
+
+        assert len(result) == 3
+        assert {item.author for item in result} == {"Author A", "Author B", "Author C"}
+
+    def test_select_diverse_candidates_balances_sources_before_reusing_source(self) -> None:
+        """Test source diversity is preferred when authors are missing."""
+        now = datetime.now(timezone.utc)
+        articles = [
+            Article(
+                id=f"article-{index}",
+                title=f"Article {index}",
+                url=f"https://{site}.example.com/{index}",
+                source_url=None,
+                author=None,
+                source=site,
+                category="article",
+                location="feed",
+                site_name=site,
+                word_count=None,
+                reading_time=None,
+                created_at=now - timedelta(minutes=index),
+                updated_at=now - timedelta(minutes=index),
+                published_date=None,
+                summary=None,
+                image_url=None,
+                notes=None,
+                reading_progress=None,
+            )
+            for index, site in enumerate(
+                ["Site A", "Site A", "Site B", "Site B", "Site C"],
+                start=1,
+            )
+        ]
+
+        result = select_diverse_candidates(articles, max_candidates=3)
+
+        assert len(result) == 3
+        assert {item.site_name for item in result} == {"Site A", "Site B", "Site C"}
+
+    def test_select_diverse_candidates_preserves_recency_inside_same_bucket(self) -> None:
+        """Test more recent articles win when source and author are identical."""
+        now = datetime.now(timezone.utc)
+        articles = [
+            Article(
+                id=f"article-{index}",
+                title=f"Article {index}",
+                url=f"https://example.com/{index}",
+                source_url=None,
+                author="Same Author",
+                source="Same Source",
+                category="article",
+                location="feed",
+                site_name="Same Site",
+                word_count=None,
+                reading_time=None,
+                created_at=now - timedelta(minutes=index),
+                updated_at=now - timedelta(minutes=index),
+                published_date=None,
+                summary=None,
+                image_url=None,
+                notes=None,
+                reading_progress=None,
+            )
+            for index in range(1, 5)
+        ]
+
+        result = select_diverse_candidates(articles, max_candidates=2)
+
+        assert [item.id for item in result] == ["article-1", "article-2"]
