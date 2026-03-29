@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import logging
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 from src.clients.llm_client import LLMClient
 from src.models import Article, ScoredArticle
+
+logger = logging.getLogger(__name__)
 
 
 def _truncate_text(text: str, max_chars: int) -> str:
@@ -76,7 +79,13 @@ def _score_single_article(
             keywords=_coerce_keywords(payload.get("keywords")),
             raw_response=str(payload),
         )
-    except Exception:
+    except Exception as e:
+        logger.error(
+            "LLM scoring failed for article '%s': %s",
+            article.title[:80],
+            repr(e),
+            exc_info=True,
+        )
         return _fallback_scored_article(article)
 
 
