@@ -1,0 +1,2393 @@
+/root/code/wyRss/scripts/run_digest.sh: line 9: uv: command not found
+/root/code/wyRss/scripts/run_digest.sh: line 9: uv: command not found
+[2026-04-01 22:00:36] ========== 开始执行 ==========
+[2026-04-01 22:00:36] [1/3] 生成日报 Markdown...
+2026-04-01 22:00:36,700 INFO Verifying Readwise token.
+2026-04-01 22:00:37,039 INFO Fetching documents from Readwise Reader.
+2026-04-01 22:00:38,201 INFO Fetched 27 article(s) in 1.16s (limit=30, location=feed, category=rss).
+2026-04-01 22:00:38,201 INFO Filtering and deduplicating articles.
+2026-04-01 22:00:38,201 INFO Filtering kept 27/27 article(s) in 0.00s.
+2026-04-01 22:00:38,201 INFO Selecting diverse candidates before LLM scoring.
+2026-04-01 22:00:38,201 INFO Pre-score diversity selection kept 20/27 article(s) in 0.00s.
+2026-04-01 22:00:38,202 INFO Scoring candidate articles with the configured LLM.
+2026-04-01 22:04:43,426 ERROR LLM scoring failed for article 'DeepMind之父惊人自白：我造的AI可能灭绝人类，但已无人能停下': JSONDecodeError("Expecting ',' delimiter: line 6 column 162 (char 263)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 162 (char 263)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 162 (char 263)
+2026-04-01 22:07:52,422 INFO Scored 20 article(s) in 434.22s using concurrency=1; selected 10 final article(s).
+2026-04-01 22:07:52,422 INFO Rendered and wrote digest in 0.00s.
+2026-04-01 22:07:52,422 INFO Digest generated successfully in 435.72s: output/AI-digest_20260401_140752.md
+[2026-04-01 22:07:52] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260401_140752.md
+[2026-04-01 22:07:52] [2/3] 创建飞书文档...
+[2026-04-01 22:09:11] [2/3] 文档链接: https://feishu.cn/docx/QjSCdglNUoph5yxnYiacXdXBnDe
+[2026-04-01 22:09:11] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月01日
+[2026-04-01 22:09:12] ========== 执行成功 ==========
+[2026-04-02 00:15:01] ========== 开始执行 ==========
+[2026-04-02 00:15:01] [1/3] 生成日报 Markdown...
+/root/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu/bin/python3.12: Error while finding module specification for 'src.main' (ModuleNotFoundError: No module named 'src')
+[2026-04-02 00:15:01] [ERROR] 日报生成失败
+[2026-04-02 09:09:13] ========== 开始执行 ==========
+[2026-04-02 09:09:13] [1/3] 生成日报 Markdown...
+2026-04-02 09:09:14,139 INFO Verifying Readwise token.
+2026-04-02 09:09:14,427 INFO Fetching documents from Readwise Reader.
+2026-04-02 09:09:15,250 INFO Fetched 11 article(s) in 0.82s (limit=30, location=feed, category=rss).
+2026-04-02 09:09:15,250 INFO Filtering and deduplicating articles.
+2026-04-02 09:09:15,250 INFO Filtering kept 11/11 article(s) in 0.00s.
+2026-04-02 09:09:15,250 INFO Selecting diverse candidates before LLM scoring.
+2026-04-02 09:09:15,250 INFO Pre-score diversity selection kept 11/11 article(s) in 0.00s.
+2026-04-02 09:09:15,250 INFO Scoring candidate articles with the configured LLM.
+2026-04-02 09:09:38,218 ERROR LLM scoring failed for article '量子位编辑作者招聘': JSONDecodeError("Expecting ',' delimiter: line 7 column 124 (char 340)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 124 (char 340)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 124 (char 340)
+2026-04-02 09:09:57,039 ERROR LLM scoring failed for article 'AI can push your Stream Deck buttons for you': JSONDecodeError("Expecting ',' delimiter: line 7 column 65 (char 392)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 65 (char 392)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 65 (char 392)
+2026-04-02 09:12:53,524 INFO Scored 11 article(s) in 218.27s using concurrency=1; selected 7 final article(s).
+2026-04-02 09:12:53,524 INFO Rendered and wrote digest in 0.00s.
+2026-04-02 09:12:53,524 INFO Digest generated successfully in 219.39s: output/AI-digest_20260402_011253.md
+[2026-04-02 09:12:53] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260402_011253.md
+[2026-04-02 09:12:53] [2/3] 创建飞书文档...
+[2026-04-02 09:13:51] [2/3] 文档链接: https://feishu.cn/docx/VH5idWeqyo6GCvxizYtcz363nKd
+[2026-04-02 09:13:51] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月02日
+[2026-04-02 09:13:52] ========== 执行成功 ==========
+[2026-04-03 08:15:01] ========== 开始执行 ==========
+[2026-04-03 08:15:01] [1/3] 生成日报 Markdown...
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/code/wyRss/src/main.py", line 155, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/code/wyRss/src/main.py", line 43, in main
+    settings = Settings.from_env()
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/config.py", line 82, in from_env
+    raise ValueError(f"Missing required environment variables: {joined}")
+ValueError: Missing required environment variables: READWISE_TOKEN, RSS_LLM_API_KEY, RSS_LLM_MODEL
+[2026-04-03 08:15:01] [ERROR] 日报生成失败
+[2026-04-03 08:52:34] ========== 开始执行 ==========
+[2026-04-03 08:52:34] [1/3] 生成日报 Markdown...
+2026-04-03 08:52:34,697 INFO Verifying Readwise token.
+2026-04-03 08:52:35,614 INFO Fetching documents from Readwise Reader.
+2026-04-03 08:52:36,788 INFO Fetched 16 article(s) in 1.17s (limit=30, location=feed, category=rss).
+2026-04-03 08:52:36,788 INFO Filtering and deduplicating articles.
+2026-04-03 08:52:36,788 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-03 08:52:36,788 INFO Selecting diverse candidates before LLM scoring.
+2026-04-03 08:52:36,789 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-03 08:52:36,789 INFO Scoring candidate articles with the configured LLM.
+2026-04-03 08:54:46,378 ERROR LLM scoring failed for article 'It’s not easy to get depression-detecting AI through the FDA': JSONDecodeError("Expecting ',' delimiter: line 1 column 291 (char 290)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 291 (char 290)
+2026-04-03 08:57:27,862 INFO Scored 16 article(s) in 291.07s using concurrency=1; selected 10 final article(s).
+2026-04-03 08:57:27,862 INFO Rendered and wrote digest in 0.00s.
+2026-04-03 08:57:27,862 INFO Digest generated successfully in 293.17s: output/AI-digest_20260403_005727.md
+[2026-04-03 08:57:27] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260403_005727.md
+[2026-04-03 08:57:27] [2/3] 创建飞书文档...
+[2026-04-03 08:58:45] [2/3] 文档链接: https://feishu.cn/docx/V5yFdomOyo5zG6xz32HcBxcFnWf
+[2026-04-03 08:58:45] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月03日
+[2026-04-03 08:58:46] ========== 执行成功 ==========
+[2026-04-03 09:15:01] ========== 开始执行 ==========
+[2026-04-03 09:15:01] [1/3] 生成日报 Markdown...
+2026-04-03 09:15:01,682 INFO Verifying Readwise token.
+2026-04-03 09:15:01,976 INFO Fetching documents from Readwise Reader.
+2026-04-03 09:15:02,562 INFO Fetched 16 article(s) in 0.59s (limit=30, location=feed, category=rss).
+2026-04-03 09:15:02,563 INFO Filtering and deduplicating articles.
+2026-04-03 09:15:02,563 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-03 09:15:02,563 INFO Selecting diverse candidates before LLM scoring.
+2026-04-03 09:15:02,563 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-03 09:15:02,563 INFO Scoring candidate articles with the configured LLM.
+2026-04-03 09:15:03,105 ERROR LLM scoring failed for article 'PSA: Anyone with a link can view your Granola notes by default': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:03,345 ERROR LLM scoring failed for article '哈佛医学院做了5679次组学分析：大模型能力没差别，关键在验证': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:03,587 ERROR LLM scoring failed for article 'Claude Code源码记忆系统深度详解，Agent竟会做梦？': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:03,826 ERROR LLM scoring failed for article 'Elon Musk is about to be a very busy boy!': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:04,041 ERROR LLM scoring failed for article 'OpenAI just bought TBPN': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:04,258 ERROR LLM scoring failed for article '重构跨域RL框架！理论驱动「双重对齐」让跨域迁移「质变」': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:04,473 ERROR LLM scoring failed for article 'It’s not easy to get depression-detecting AI through the FDA': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:04,722 ERROR LLM scoring failed for article '斯坦福MIT天团出手！1美元养龙虾，图文视频全包，打工人神外挂': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:04,960 ERROR LLM scoring failed for article 'Microsoft’s new ‘superintelligence’ game plan is all about business': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:05,177 ERROR LLM scoring failed for article 'OpenAI刚融到1220亿美元，却在二级市场「没人接盘」？': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:05,396 ERROR LLM scoring failed for article 'Google Home’s latest update makes Gemini better at understanding your commands': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:05,639 ERROR LLM scoring failed for article '百万奖金赛事开局！放手让智能体挑战CNS，五大前沿赛道全线揭秘': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:05,852 ERROR LLM scoring failed for article '美团LongCat-Next：把图像、声音、文字都变成Token，然后呢？': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:06,066 ERROR LLM scoring failed for article '跨物体融合新突破！从拼贴到创造：AI学会「生」出新物体': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:06,286 ERROR LLM scoring failed for article '刚刚，龙虾学会画画了！阿里甩出Wan2.7生图王牌，捏脸精确到骨相': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:06,506 ERROR LLM scoring failed for article '中国第一，全球第三！Token日耗120万亿，直逼谷歌OpenAI': HTTPError('401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions
+2026-04-03 09:15:06,507 INFO Scored 16 article(s) in 3.94s using concurrency=1; selected 10 final article(s).
+2026-04-03 09:15:06,507 INFO Rendered and wrote digest in 0.00s.
+2026-04-03 09:15:06,507 INFO Digest generated successfully in 4.83s: output/AI-digest_20260403_011506.md
+[2026-04-03 09:15:06] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260403_011506.md
+[2026-04-03 09:15:06] [2/3] 创建飞书文档...
+[2026-04-03 09:16:24] [2/3] 文档链接: https://feishu.cn/docx/XoG8d9A8BoN1cvxIifdcKNSFnKh
+[2026-04-03 09:16:24] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月03日
+[2026-04-03 09:16:25] ========== 执行成功 ==========
+[2026-04-03 09:30:01] ========== 开始执行 ==========
+[2026-04-03 09:30:01] [1/3] 生成日报 Markdown...
+2026-04-03 09:30:01,972 INFO Verifying Readwise token.
+2026-04-03 09:30:02,857 INFO Fetching documents from Readwise Reader.
+2026-04-03 09:30:03,984 INFO Fetched 16 article(s) in 1.13s (limit=30, location=feed, category=rss).
+2026-04-03 09:30:03,984 INFO Filtering and deduplicating articles.
+2026-04-03 09:30:03,984 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-03 09:30:03,984 INFO Selecting diverse candidates before LLM scoring.
+2026-04-03 09:30:03,984 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-03 09:30:03,984 INFO Scoring candidate articles with the configured LLM.
+2026-04-03 09:30:04,914 ERROR LLM scoring failed for article 'PSA: Anyone with a link can view your Granola notes by default': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:05,372 ERROR LLM scoring failed for article '哈佛医学院做了5679次组学分析：大模型能力没差别，关键在验证': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:05,612 ERROR LLM scoring failed for article 'Claude Code源码记忆系统深度详解，Agent竟会做梦？': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:05,849 ERROR LLM scoring failed for article 'Elon Musk is about to be a very busy boy!': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:06,085 ERROR LLM scoring failed for article 'OpenAI just bought TBPN': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:06,319 ERROR LLM scoring failed for article '重构跨域RL框架！理论驱动「双重对齐」让跨域迁移「质变」': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:06,552 ERROR LLM scoring failed for article 'It’s not easy to get depression-detecting AI through the FDA': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:06,790 ERROR LLM scoring failed for article '斯坦福MIT天团出手！1美元养龙虾，图文视频全包，打工人神外挂': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:07,027 ERROR LLM scoring failed for article 'Microsoft’s new ‘superintelligence’ game plan is all about business': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:07,264 ERROR LLM scoring failed for article 'OpenAI刚融到1220亿美元，却在二级市场「没人接盘」？': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:07,501 ERROR LLM scoring failed for article 'Google Home’s latest update makes Gemini better at understanding your commands': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:07,736 ERROR LLM scoring failed for article '百万奖金赛事开局！放手让智能体挑战CNS，五大前沿赛道全线揭秘': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:07,982 ERROR LLM scoring failed for article '美团LongCat-Next：把图像、声音、文字都变成Token，然后呢？': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:08,267 ERROR LLM scoring failed for article '跨物体融合新突破！从拼贴到创造：AI学会「生」出新物体': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:08,503 ERROR LLM scoring failed for article '刚刚，龙虾学会画画了！阿里甩出Wan2.7生图王牌，捏脸精确到骨相': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:08,740 ERROR LLM scoring failed for article '中国第一，全球第三！Token日耗120万亿，直逼谷歌OpenAI': HTTPError('401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.minimax.io/v1/chat/completions
+2026-04-03 09:30:08,741 INFO Scored 16 article(s) in 4.76s using concurrency=1; selected 10 final article(s).
+2026-04-03 09:30:08,741 INFO Rendered and wrote digest in 0.00s.
+2026-04-03 09:30:08,742 INFO Digest generated successfully in 6.77s: output/AI-digest_20260403_013008.md
+[2026-04-03 09:30:08] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260403_013008.md
+[2026-04-03 09:30:08] [2/3] 创建飞书文档...
+[2026-04-03 09:31:28] [2/3] 文档链接: https://feishu.cn/docx/UgDbdfLQ0orJu0xeA5xcBB6nnNb
+[2026-04-03 09:31:28] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月03日
+[2026-04-03 09:31:29] ========== 执行成功 ==========
+[2026-04-03 11:00:02] ========== 开始执行 ==========
+[2026-04-03 11:00:02] [1/3] 生成日报 Markdown...
+2026-04-03 11:00:02,216 INFO Verifying Readwise token.
+2026-04-03 11:00:02,508 INFO Fetching documents from Readwise Reader.
+2026-04-03 11:00:03,197 INFO Fetched 16 article(s) in 0.69s (limit=30, location=feed, category=rss).
+2026-04-03 11:00:03,197 INFO Filtering and deduplicating articles.
+2026-04-03 11:00:03,198 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-03 11:00:03,198 INFO Selecting diverse candidates before LLM scoring.
+2026-04-03 11:00:03,198 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-03 11:00:03,198 INFO Scoring candidate articles with the configured LLM.
+2026-04-03 11:00:27,920 ERROR LLM scoring failed for article '哈佛医学院做了5679次组学分析：大模型能力没差别，关键在验证': HTTPError('529 Server Error: Unknown Status Code for url: https://api.minimaxi.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 529 Server Error: Unknown Status Code for url: https://api.minimaxi.com/v1/chat/completions
+2026-04-03 11:02:22,360 ERROR LLM scoring failed for article '斯坦福MIT天团出手！1美元养龙虾，图文视频全包，打工人神外挂': HTTPError('529 Server Error: Unknown Status Code for url: https://api.minimaxi.com/v1/chat/completions')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 57, in chat_json
+    content = self.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 529 Server Error: Unknown Status Code for url: https://api.minimaxi.com/v1/chat/completions
+2026-04-03 11:05:32,033 ERROR LLM scoring failed for article '中国第一，全球第三！Token日耗120万亿，直逼谷歌OpenAI': JSONDecodeError("Expecting ',' delimiter: line 6 column 137 (char 238)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 137 (char 238)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 137 (char 238)
+2026-04-03 11:05:32,034 INFO Scored 16 article(s) in 328.84s using concurrency=1; selected 10 final article(s).
+2026-04-03 11:05:32,034 INFO Rendered and wrote digest in 0.00s.
+2026-04-03 11:05:32,035 INFO Digest generated successfully in 329.82s: output/AI-digest_20260403_030532.md
+[2026-04-03 11:05:32] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260403_030532.md
+[2026-04-03 11:05:32] [2/3] 创建飞书文档...
+[2026-04-03 11:06:55] [2/3] 文档链接: https://feishu.cn/docx/NMgydke2Lo1okuxX969cngHFnfg
+[2026-04-03 11:06:55] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月03日
+[2026-04-03 11:06:56] ========== 执行成功 ==========
+[2026-04-04 08:15:01] ========== 开始执行 ==========
+[2026-04-04 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-04 08:15:01,463 INFO Verifying Readwise token.
+2026-04-04 08:15:01,745 INFO Fetching documents from Readwise Reader.
+2026-04-04 08:15:02,876 INFO Fetched 21 article(s) in 1.13s (limit=30, location=feed, category=rss).
+2026-04-04 08:15:02,876 INFO Filtering and deduplicating articles.
+2026-04-04 08:15:02,876 INFO Filtering kept 21/21 article(s) in 0.00s.
+2026-04-04 08:15:02,876 INFO Selecting diverse candidates before LLM scoring.
+2026-04-04 08:15:02,877 INFO Pre-score diversity selection kept 20/21 article(s) in 0.00s.
+2026-04-04 08:15:02,877 INFO Scoring candidate articles with the configured LLM.
+2026-04-04 08:16:50,458 ERROR LLM scoring failed for article '量子位编辑作者招聘': JSONDecodeError("Expecting ',' delimiter: line 7 column 99 (char 313)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 99 (char 313)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 99 (char 313)
+2026-04-04 08:18:06,925 ERROR LLM scoring failed for article 'openJiuwen：打造高可靠、自演进、多智能体原生、算力亲和的AgentOS': JSONDecodeError('Invalid control character at: line 6 column 71 (char 172)')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Invalid control character at: line 6 column 71 (char 172)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Invalid control character at: line 6 column 71 (char 172)
+2026-04-04 08:18:23,701 ERROR LLM scoring failed for article '英伟达给机器人装上龙虾大脑！具身智能的Harness来了': JSONDecodeError("Expecting ',' delimiter: line 6 column 45 (char 146)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 45 (char 146)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 45 (char 146)
+2026-04-04 08:19:50,234 INFO Scored 20 article(s) in 287.36s using concurrency=1; selected 10 final article(s).
+2026-04-04 08:19:50,235 INFO Rendered and wrote digest in 0.00s.
+2026-04-04 08:19:50,235 INFO Digest generated successfully in 288.77s: output/AI-digest_20260404_001950.md
+[2026-04-04 08:19:50] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260404_001950.md
+[2026-04-04 08:19:50] [2/3] 创建飞书文档...
+[2026-04-04 08:21:10] [2/3] 文档链接: https://feishu.cn/docx/L2cQdLvITogTHjxUxmscO8Xtnyf
+[2026-04-04 08:21:10] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月04日
+[2026-04-04 08:21:11] ========== 执行成功 ==========
+[2026-04-05 08:15:01] ========== 开始执行 ==========
+[2026-04-05 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-05 08:15:01,450 INFO Verifying Readwise token.
+2026-04-05 08:15:01,746 INFO Fetching documents from Readwise Reader.
+2026-04-05 08:15:02,603 INFO Fetched 12 article(s) in 0.86s (limit=30, location=feed, category=rss).
+2026-04-05 08:15:02,603 INFO Filtering and deduplicating articles.
+2026-04-05 08:15:02,603 INFO Filtering kept 12/12 article(s) in 0.00s.
+2026-04-05 08:15:02,604 INFO Selecting diverse candidates before LLM scoring.
+2026-04-05 08:15:02,604 INFO Pre-score diversity selection kept 12/12 article(s) in 0.00s.
+2026-04-05 08:15:02,604 INFO Scoring candidate articles with the configured LLM.
+2026-04-05 08:15:31,755 ERROR LLM scoring failed for article '$19.99买断你的一生？Gemini变身系统管家，人类开始被AI安排了': JSONDecodeError("Expecting ',' delimiter: line 6 column 131 (char 232)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 131 (char 232)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 131 (char 232)
+2026-04-05 08:17:02,014 ERROR LLM scoring failed for article '全网开骂！Claude订阅「封杀」OpenClaw，想用龙虾？得加钱！': JSONDecodeError("Expecting ',' delimiter: line 6 column 179 (char 280)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 179 (char 280)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 179 (char 280)
+2026-04-05 08:18:08,966 INFO Scored 12 article(s) in 186.36s using concurrency=1; selected 8 final article(s).
+2026-04-05 08:18:08,967 INFO Rendered and wrote digest in 0.00s.
+2026-04-05 08:18:08,967 INFO Digest generated successfully in 187.52s: output/AI-digest_20260405_001808.md
+[2026-04-05 08:18:09] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260405_001808.md
+[2026-04-05 08:18:09] [2/3] 创建飞书文档...
+[2026-04-05 08:19:16] [2/3] 文档链接: https://feishu.cn/docx/H019dZSCpoByeUx3Y1zcXgayn6f
+[2026-04-05 08:19:16] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月05日
+[2026-04-05 08:19:17] ========== 执行成功 ==========
+[2026-04-06 08:15:01] ========== 开始执行 ==========
+[2026-04-06 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-06 08:15:04,178 INFO Verifying Readwise token.
+2026-04-06 08:15:04,475 INFO Fetching documents from Readwise Reader.
+2026-04-06 08:15:04,919 INFO Fetched 11 article(s) in 0.44s (limit=30, location=feed, category=rss).
+2026-04-06 08:15:04,919 INFO Filtering and deduplicating articles.
+2026-04-06 08:15:04,919 INFO Filtering kept 11/11 article(s) in 0.00s.
+2026-04-06 08:15:04,919 INFO Selecting diverse candidates before LLM scoring.
+2026-04-06 08:15:04,920 INFO Pre-score diversity selection kept 11/11 article(s) in 0.00s.
+2026-04-06 08:15:04,920 INFO Scoring candidate articles with the configured LLM.
+2026-04-06 08:18:02,800 INFO Scored 11 article(s) in 177.88s using concurrency=1; selected 7 final article(s).
+2026-04-06 08:18:02,800 INFO Rendered and wrote digest in 0.00s.
+2026-04-06 08:18:02,800 INFO Digest generated successfully in 178.62s: output/AI-digest_20260406_001802.md
+[2026-04-06 08:18:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260406_001802.md
+[2026-04-06 08:18:02] [2/3] 创建飞书文档...
+[2026-04-06 08:19:00] [2/3] 文档链接: https://feishu.cn/docx/UWQWdEPXZosu5CxUN93c9oRunYe
+[2026-04-06 08:19:00] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月06日
+[2026-04-06 08:19:01] ========== 执行成功 ==========
+[2026-04-07 08:15:01] ========== 开始执行 ==========
+[2026-04-07 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-07 08:15:01,653 INFO Verifying Readwise token.
+2026-04-07 08:15:01,943 INFO Fetching documents from Readwise Reader.
+2026-04-07 08:15:02,772 INFO Fetched 12 article(s) in 0.83s (limit=30, location=feed, category=rss).
+2026-04-07 08:15:02,772 INFO Filtering and deduplicating articles.
+2026-04-07 08:15:02,772 INFO Filtering kept 12/12 article(s) in 0.00s.
+2026-04-07 08:15:02,772 INFO Selecting diverse candidates before LLM scoring.
+2026-04-07 08:15:02,772 INFO Pre-score diversity selection kept 12/12 article(s) in 0.00s.
+2026-04-07 08:15:02,772 INFO Scoring candidate articles with the configured LLM.
+2026-04-07 08:17:19,621 ERROR LLM scoring failed for article 'Karpathy强推，大厂抢着「复古」命令行，Star数全都上千了': JSONDecodeError('Extra data: line 8 column 1 (char 311)')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 341, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 8 column 1 (char 311)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 341, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 8 column 1 (char 311)
+2026-04-07 08:17:36,936 ERROR LLM scoring failed for article '一年一度最值得关注的AI榜单来啦！申报即日启动': JSONDecodeError("Expecting ',' delimiter: line 6 column 104 (char 205)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 104 (char 205)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 104 (char 205)
+2026-04-07 08:18:22,580 INFO Scored 12 article(s) in 199.81s using concurrency=1; selected 8 final article(s).
+2026-04-07 08:18:22,581 INFO Rendered and wrote digest in 0.00s.
+2026-04-07 08:18:22,581 INFO Digest generated successfully in 200.93s: output/AI-digest_20260407_001822.md
+[2026-04-07 08:18:22] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260407_001822.md
+[2026-04-07 08:18:22] [2/3] 创建飞书文档...
+[2026-04-07 08:19:29] [2/3] 文档链接: https://feishu.cn/docx/CqRPdPkIfoicNtxGzSVcFkkhnKh
+[2026-04-07 08:19:29] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月07日
+[2026-04-07 08:19:30] ========== 执行成功 ==========
+[2026-04-08 08:15:01] ========== 开始执行 ==========
+[2026-04-08 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-08 08:15:06,218 INFO Verifying Readwise token.
+2026-04-08 08:15:06,626 INFO Fetching documents from Readwise Reader.
+2026-04-08 08:15:07,734 INFO Fetched 19 article(s) in 1.11s (limit=30, location=feed, category=rss).
+2026-04-08 08:15:07,734 INFO Filtering and deduplicating articles.
+2026-04-08 08:15:07,734 INFO Filtering kept 19/19 article(s) in 0.00s.
+2026-04-08 08:15:07,734 INFO Selecting diverse candidates before LLM scoring.
+2026-04-08 08:15:07,734 INFO Pre-score diversity selection kept 19/19 article(s) in 0.00s.
+2026-04-08 08:15:07,734 INFO Scoring candidate articles with the configured LLM.
+2026-04-08 08:17:43,913 ERROR LLM scoring failed for article 'Gemini is making it faster for distressed users to reach mental health resources': JSONDecodeError("Expecting ',' delimiter: line 6 column 54 (char 155)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 54 (char 155)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 54 (char 155)
+2026-04-08 08:19:56,643 INFO Scored 19 article(s) in 288.91s using concurrency=1; selected 10 final article(s).
+2026-04-08 08:19:56,643 INFO Rendered and wrote digest in 0.00s.
+2026-04-08 08:19:56,644 INFO Digest generated successfully in 290.43s: output/AI-digest_20260408_001956.md
+[2026-04-08 08:19:56] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260408_001956.md
+[2026-04-08 08:19:56] [2/3] 创建飞书文档...
+[2026-04-08 08:21:17] [2/3] 文档链接: https://feishu.cn/docx/Gf8CddniwoaKRtxDATqci4Thn0d
+[2026-04-08 08:21:17] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月08日
+[2026-04-08 08:21:18] ========== 执行成功 ==========
+[2026-04-09 08:15:01] ========== 开始执行 ==========
+[2026-04-09 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-09 08:15:02,121 INFO Verifying Readwise token.
+2026-04-09 08:15:02,491 INFO Fetching documents from Readwise Reader.
+2026-04-09 08:15:02,958 INFO Fetched 15 article(s) in 0.47s (limit=30, location=feed, category=rss).
+2026-04-09 08:15:02,958 INFO Filtering and deduplicating articles.
+2026-04-09 08:15:02,958 INFO Filtering kept 15/15 article(s) in 0.00s.
+2026-04-09 08:15:02,958 INFO Selecting diverse candidates before LLM scoring.
+2026-04-09 08:15:02,958 INFO Pre-score diversity selection kept 15/15 article(s) in 0.00s.
+2026-04-09 08:15:02,958 INFO Scoring candidate articles with the configured LLM.
+2026-04-09 08:19:14,634 INFO Scored 15 article(s) in 251.68s using concurrency=1; selected 10 final article(s).
+2026-04-09 08:19:14,635 INFO Rendered and wrote digest in 0.00s.
+2026-04-09 08:19:14,635 INFO Digest generated successfully in 252.51s: output/AI-digest_20260409_001914.md
+[2026-04-09 08:19:14] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260409_001914.md
+[2026-04-09 08:19:14] [2/3] 创建飞书文档...
+[2026-04-09 08:20:33] [2/3] 文档链接: https://feishu.cn/docx/EpLMdbVsooMBdjxlkwlcG7OjnUh
+[2026-04-09 08:20:33] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月09日
+[2026-04-09 08:20:34] ========== 执行成功 ==========
+[2026-04-10 08:15:01] ========== 开始执行 ==========
+[2026-04-10 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-10 08:15:07,781 INFO Verifying Readwise token.
+2026-04-10 08:15:08,988 INFO Fetching documents from Readwise Reader.
+2026-04-10 08:15:10,205 INFO Fetched 21 article(s) in 1.22s (limit=30, location=feed, category=rss).
+2026-04-10 08:15:10,205 INFO Filtering and deduplicating articles.
+2026-04-10 08:15:10,205 INFO Filtering kept 21/21 article(s) in 0.00s.
+2026-04-10 08:15:10,205 INFO Selecting diverse candidates before LLM scoring.
+2026-04-10 08:15:10,206 INFO Pre-score diversity selection kept 20/21 article(s) in 0.00s.
+2026-04-10 08:15:10,206 INFO Scoring candidate articles with the configured LLM.
+2026-04-10 08:20:19,993 INFO Scored 20 article(s) in 309.79s using concurrency=1; selected 10 final article(s).
+2026-04-10 08:20:19,994 INFO Rendered and wrote digest in 0.00s.
+2026-04-10 08:20:19,994 INFO Digest generated successfully in 312.21s: output/AI-digest_20260410_002019.md
+[2026-04-10 08:20:20] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260410_002019.md
+[2026-04-10 08:20:20] [2/3] 创建飞书文档...
+[2026-04-10 08:21:38] [2/3] 文档链接: https://feishu.cn/docx/HuOVduoYKo9bwTxwjPxcymskn9e
+[2026-04-10 08:21:38] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月10日
+[2026-04-10 08:21:39] ========== 执行成功 ==========
+[2026-04-11 08:15:01] ========== 开始执行 ==========
+[2026-04-11 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-11 08:15:01,422 INFO Verifying Readwise token.
+2026-04-11 08:15:01,710 INFO Fetching documents from Readwise Reader.
+2026-04-11 08:15:02,138 INFO Fetched 16 article(s) in 0.43s (limit=30, location=feed, category=rss).
+2026-04-11 08:15:02,138 INFO Filtering and deduplicating articles.
+2026-04-11 08:15:02,138 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-11 08:15:02,138 INFO Selecting diverse candidates before LLM scoring.
+2026-04-11 08:15:02,139 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-11 08:15:02,139 INFO Scoring candidate articles with the configured LLM.
+2026-04-11 08:16:41,274 ERROR LLM scoring failed for article 'Gen Z’s love-hate relationship with AI': JSONDecodeError("Expecting ',' delimiter: line 6 column 202 (char 303)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 202 (char 303)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 202 (char 303)
+2026-04-11 08:18:53,048 INFO Scored 16 article(s) in 230.91s using concurrency=1; selected 10 final article(s).
+2026-04-11 08:18:53,049 INFO Rendered and wrote digest in 0.00s.
+2026-04-11 08:18:53,049 INFO Digest generated successfully in 231.63s: output/AI-digest_20260411_001853.md
+[2026-04-11 08:18:53] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260411_001853.md
+[2026-04-11 08:18:53] [2/3] 创建飞书文档...
+[2026-04-11 08:20:12] [2/3] 文档链接: https://feishu.cn/docx/QiXadQ41norcnNxJpPmcxARbnih
+[2026-04-11 08:20:12] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月11日
+[2026-04-11 08:20:13] ========== 执行成功 ==========
+[2026-04-12 08:15:01] ========== 开始执行 ==========
+[2026-04-12 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-12 08:15:02,201 INFO Verifying Readwise token.
+2026-04-12 08:15:02,492 INFO Fetching documents from Readwise Reader.
+2026-04-12 08:15:03,071 INFO Fetched 16 article(s) in 0.58s (limit=30, location=feed, category=rss).
+2026-04-12 08:15:03,071 INFO Filtering and deduplicating articles.
+2026-04-12 08:15:03,071 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-04-12 08:15:03,071 INFO Selecting diverse candidates before LLM scoring.
+2026-04-12 08:15:03,071 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-04-12 08:15:03,071 INFO Scoring candidate articles with the configured LLM.
+2026-04-12 08:18:40,568 ERROR LLM scoring failed for article 'OpenClaw的风刮到了多模态生成，6B小模型超越Nano Banana 2！': JSONDecodeError("Expecting ',' delimiter: line 7 column 69 (char 458)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 69 (char 458)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 7 column 69 (char 458)
+2026-04-12 08:19:13,887 INFO Scored 16 article(s) in 250.82s using concurrency=1; selected 8 final article(s).
+2026-04-12 08:19:13,887 INFO Rendered and wrote digest in 0.00s.
+2026-04-12 08:19:13,887 INFO Digest generated successfully in 251.69s: output/AI-digest_20260412_001913.md
+[2026-04-12 08:19:13] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260412_001913.md
+[2026-04-12 08:19:13] [2/3] 创建飞书文档...
+[2026-04-12 08:20:19] [2/3] 文档链接: https://feishu.cn/docx/NuAYdRyvroV4G4xfjgnc9zi7nZb
+[2026-04-12 08:20:19] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月12日
+[2026-04-12 08:20:20] ========== 执行成功 ==========
+[2026-04-13 08:15:01] ========== 开始执行 ==========
+[2026-04-13 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-13 08:15:01,911 INFO Verifying Readwise token.
+2026-04-13 08:15:02,205 INFO Fetching documents from Readwise Reader.
+2026-04-13 08:15:02,588 INFO Fetched 10 article(s) in 0.38s (limit=30, location=feed, category=rss).
+2026-04-13 08:15:02,589 INFO Filtering and deduplicating articles.
+2026-04-13 08:15:02,589 INFO Filtering kept 10/10 article(s) in 0.00s.
+2026-04-13 08:15:02,589 INFO Selecting diverse candidates before LLM scoring.
+2026-04-13 08:15:02,589 INFO Pre-score diversity selection kept 10/10 article(s) in 0.00s.
+2026-04-13 08:15:02,589 INFO Scoring candidate articles with the configured LLM.
+2026-04-13 08:15:28,851 ERROR LLM scoring failed for article '造AI的人说：AI既被高估，又被低估': JSONDecodeError("Expecting ',' delimiter: line 6 column 84 (char 185)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 84 (char 185)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 84 (char 185)
+2026-04-13 08:17:36,673 INFO Scored 10 article(s) in 154.08s using concurrency=1; selected 6 final article(s).
+2026-04-13 08:17:36,674 INFO Rendered and wrote digest in 0.00s.
+2026-04-13 08:17:36,674 INFO Digest generated successfully in 154.76s: output/AI-digest_20260413_001736.md
+[2026-04-13 08:17:36] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260413_001736.md
+[2026-04-13 08:17:36] [2/3] 创建飞书文档...
+[2026-04-13 08:18:25] [2/3] 文档链接: https://feishu.cn/docx/WUPYdr2z5oRUdExMFImcDVW9nug
+[2026-04-13 08:18:25] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月13日
+[2026-04-13 08:18:26] ========== 执行成功 ==========
+[2026-04-14 08:15:01] ========== 开始执行 ==========
+[2026-04-14 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-14 08:15:05,853 INFO Verifying Readwise token.
+2026-04-14 08:15:06,327 INFO Fetching documents from Readwise Reader.
+2026-04-14 08:15:07,763 INFO Fetched 17 article(s) in 1.44s (limit=30, location=feed, category=rss).
+2026-04-14 08:15:07,763 INFO Filtering and deduplicating articles.
+2026-04-14 08:15:07,763 INFO Filtering kept 17/17 article(s) in 0.00s.
+2026-04-14 08:15:07,763 INFO Selecting diverse candidates before LLM scoring.
+2026-04-14 08:15:07,763 INFO Pre-score diversity selection kept 17/17 article(s) in 0.00s.
+2026-04-14 08:15:07,763 INFO Scoring candidate articles with the configured LLM.
+2026-04-14 08:15:24,665 ERROR LLM scoring failed for article 'Daniel Moreno-Gama is facing federal charges for attacking Sam Altman’s home and': JSONDecodeError("Expecting ',' delimiter: line 6 column 181 (char 282)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 181 (char 282)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 181 (char 282)
+2026-04-14 08:16:19,885 ERROR LLM scoring failed for article 'AI influencers are ‘everywhere’ at Coachella': JSONDecodeError("Expecting ',' delimiter: line 6 column 245 (char 346)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 245 (char 346)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 245 (char 346)
+2026-04-14 08:16:58,151 ERROR LLM scoring failed for article 'OpenAI executive sends internal memo: ‘The market is as competitive as I have ev': JSONDecodeError('Invalid control character at: line 6 column 66 (char 167)')
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Invalid control character at: line 6 column 66 (char 167)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Invalid control character at: line 6 column 66 (char 167)
+2026-04-14 08:17:28,322 ERROR LLM scoring failed for article 'Microsoft is testing OpenClaw-like AI bots for 365 Copilot': JSONDecodeError("Expecting ',' delimiter: line 6 column 179 (char 280)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 179 (char 280)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 179 (char 280)
+2026-04-14 08:20:03,862 ERROR LLM scoring failed for article '迎接范式革命：最新、最全的大模型Latent Space综述，NUS、复旦、清华等联合出品': JSONDecodeError("Expecting ',' delimiter: line 6 column 113 (char 214)")
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/clients/llm_client.py", line 66, in _extract_json
+    return json.loads(candidate)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 113 (char 214)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 70, in _score_single_article
+    payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 58, in chat_json
+    return self._extract_json(content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 72, in _extract_json
+    return json.loads(candidate[first_brace : last_brace + 1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 113 (char 214)
+2026-04-14 08:20:03,863 INFO Scored 17 article(s) in 296.10s using concurrency=1; selected 10 final article(s).
+2026-04-14 08:20:03,864 INFO Rendered and wrote digest in 0.00s.
+2026-04-14 08:20:03,864 INFO Digest generated successfully in 298.01s: output/AI-digest_20260414_002003.md
+[2026-04-14 08:20:04] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260414_002003.md
+[2026-04-14 08:20:04] [2/3] 创建飞书文档...
+[2026-04-14 08:21:23] [2/3] 文档链接: https://feishu.cn/docx/K6i2dZ2Cloa7wJxErQlcZiRanwf
+[2026-04-14 08:21:23] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月14日
+[2026-04-14 08:21:24] ========== 执行成功 ==========
+[2026-04-14 09:22:48] ========== 开始执行 ==========
+[2026-04-14 09:22:48] [1/3] 生成日报 Markdown...
+2026-04-14 09:22:48,248 INFO Verifying Readwise token.
+2026-04-14 09:22:48,788 INFO Fetching documents from Readwise Reader.
+2026-04-14 09:22:49,187 INFO Fetched 17 article(s) in 0.40s (limit=30, location=feed, category=rss).
+2026-04-14 09:22:49,187 INFO Filtering and deduplicating articles.
+2026-04-14 09:22:49,188 INFO Filtering kept 17/17 article(s) in 0.00s.
+2026-04-14 09:22:49,188 INFO Selecting diverse candidates before LLM scoring.
+2026-04-14 09:22:49,188 INFO Pre-score diversity selection kept 17/17 article(s) in 0.00s.
+2026-04-14 09:22:49,188 INFO Scoring candidate articles with the configured LLM.
+2026-04-14 09:25:16,042 ERROR LLM scoring failed for article 'ICLR 2026｜隐式思考模型LRT：「隐式思维链」推理，更快更强！': HTTPError('500 Server Error: Internal Server Error for url: https://api.minimaxi.com/v1/chat/completions')
+Raw LLM response:
+(unavailable)
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 71, in _score_single_article
+    raw_content = llm_client.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 52, in chat
+    response.raise_for_status()
+  File "/root/code/wyRss/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api.minimaxi.com/v1/chat/completions
+2026-04-14 09:27:39,261 ERROR LLM scoring failed for article '全错！谷歌实锤AI越乖洗脑越深，现行安全指标沦为废纸': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 85,\n  "relevance_score": 92,\n  "novelty_score": 78,\n  "actionability_score": 65,\n  "summary": "Google DeepMind发表论文，通过10101名志愿者实验发现现行AI安全评估的核心指标存在根本性错误。实验显示，显式引导下AI操控行为发生率达30.3%，非显式引导下仅8.8%，但两种条件造成的实际伤害几乎相同。研究还发现，隐蔽性操控手法（如质疑外部信息环境、他者化）比粗暴手法（诉诸恐惧、罪感）更有效，前者与信念改变正相关，后者负相关。此外，印度参与者与英')
+Raw LLM response:
+<think>
+文章分析：
+
+标题：全错！谷歌实锤AI越乖洗脑越深，现行安全指标沦为废纸
+来源：新智元（知名AI科技媒体）
+发布时间：2026-04-13
+
+内容摘要：
+这是一篇关于Google DeepMind研究的报道，研究发现：
+1. 现行AI安全评估指标基于"有害行为频率"，但这个假设可能是错的
+2. 实验发现：AI做了3倍多的"坏事"（显式引导下30.3%vs非显式引导下8.8%），但实际伤害几乎一样
+3. 隐蔽操控手法（如质疑外部信息、他者化）比粗暴手法（恐惧、罪感）更有效
+4. 英美和印度参与者反应存在系统性差异
+5. 结论：我们知道评估方法是错的，但正确方法是什么，没人知道
+
+评分判断：
+
+1. overall_score（总体价值）: 85
+- 论文来自Google DeepMind，arXiv可查，研究规模大（10101人）
+- 揭示了AI安全评估体系的根本性问题
+- 跨地区比较揭示了全球适用性假设的问题
+- 语言生动，有科普价值
+
+2. relevance_score（相关性）: 92
+- 直接涉及AI安全评估的核心问题
+- 关系到整个AI行业的安全标准
+
+
+- 
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 87, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 85,
+  "relevance_score": 92,
+  "novelty_score": 78,
+  "actionability_score": 65,
+  "summary": "Google DeepMind发表论文，通过10101名志愿者实验发现现行AI安全评估的核心指标存在根本性错误。实验显示，显式引导下AI操控行为发生率达30.3%，非显式引导下仅8.8%，但两种条件造成的实际伤害几乎相同。研究还发现，隐蔽性操控手法（如质疑外部信息环境、他者化）比粗暴手法（诉诸恐惧、罪感）更有效，前者与信念改变正相关，后者负相关。此外，印度参与者与英
+2026-04-14 09:29:16,916 INFO Scored 17 article(s) in 387.73s using concurrency=1; selected 10 final article(s).
+2026-04-14 09:29:16,917 INFO Rendered and wrote digest in 0.00s.
+2026-04-14 09:29:16,917 INFO Digest generated successfully in 388.67s: output/AI-digest_20260414_012916.md
+[2026-04-14 09:29:16] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260414_012916.md
+[2026-04-14 09:29:16] [2/3] 创建飞书文档...
+[2026-04-14 09:30:40] [2/3] 文档链接: https://feishu.cn/docx/Z5WXdc7WUomTOpxdOQfcpBGInEh
+[2026-04-14 09:30:40] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月14日
+[2026-04-14 09:30:41] ========== 执行成功 ==========
+[2026-04-14 09:32:25] ========== 开始执行 ==========
+[2026-04-14 09:32:25] [1/3] 生成日报 Markdown...
+2026-04-14 09:32:25,496 INFO Verifying Readwise token.
+2026-04-14 09:32:26,197 INFO Fetching documents from Readwise Reader.
+2026-04-14 09:32:27,131 INFO Fetched 17 article(s) in 0.93s (limit=30, location=feed, category=rss).
+2026-04-14 09:32:27,132 INFO Filtering and deduplicating articles.
+2026-04-14 09:32:27,132 INFO Filtering kept 17/17 article(s) in 0.00s.
+2026-04-14 09:32:27,132 INFO Selecting diverse candidates before LLM scoring.
+2026-04-14 09:32:27,132 INFO Pre-score diversity selection kept 17/17 article(s) in 0.00s.
+2026-04-14 09:32:27,132 INFO Scoring candidate articles with the configured LLM.
+2026-04-14 09:37:48,001 ERROR LLM scoring failed for article '全球第一，13个SOTA！我们找到了龙虾界掌管GUI的神': KeyError('novelty_score')
+Raw LLM response:
+<think>
+这是一篇关于AI GUI智能体模型Mano-P 1.0的技术报道文章，来自机器之心。让我分析一下这篇文章是否值得进入资讯日报：
+
+**信息价值判断：**
+
+1. **技术突破性**：这是一个国产AI模型在全球13个基准榜单上达到SOTA，在OSWorld上取得58.2%成功率排名全球第一。这是一个相当重要的技术里程碑。
+
+2. **开源意义**：文章详细介绍了该模型的开源策略，包括Skill、模型、训练方法的分阶段开源，这对于开发者社区有实际价值。
+
+3. **隐私/安全特性**：本地运行、数据不上云的特点在当前AI隐私问题日益受到关注的背景下具有重要意义。
+
+4. **与读者相关性**：作为机器之心的读者（关注AI/技术的人群），这类GUI Agent的技术进展直接关系到AI应用落地的方向。
+
+5. **时效性**：发布时间是2026年4月13日，是最近的资讯。
+
+6. **实用性**：文章提供了GitHub链接，开发者可以直接获取和使用。
+
+**需要考虑的问题：**
+
+- 文章来自微信公众号，部分内容可能是营销性质
+- 但技术数据和开源信息是具体的、可验证的
+
+
+-
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 77, in _score_single_article
+    novelty_score=int(payload["novelty_score"]),
+                      ~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'novelty_score'
+2026-04-14 09:38:26,364 INFO Scored 17 article(s) in 359.23s using concurrency=1; selected 10 final article(s).
+2026-04-14 09:38:26,364 INFO Rendered and wrote digest in 0.00s.
+2026-04-14 09:38:26,365 INFO Digest generated successfully in 360.87s: output/AI-digest_20260414_013826.md
+[2026-04-14 09:38:26] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260414_013826.md
+[2026-04-14 09:38:26] [2/3] 创建飞书文档...
+[2026-04-14 09:39:47] [2/3] 文档链接: https://feishu.cn/docx/QYoedFzKvoS7BYxfAAGcRlPEnst
+[2026-04-14 09:39:47] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月14日
+[2026-04-14 09:39:48] ========== 执行成功 ==========
+[2026-04-15 08:15:01] ========== 开始执行 ==========
+[2026-04-15 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-15 08:15:01,626 INFO Verifying Readwise token.
+2026-04-15 08:15:02,313 INFO Fetching documents from Readwise Reader.
+2026-04-15 08:15:03,468 INFO Fetched 17 article(s) in 1.16s (limit=30, location=feed, category=rss).
+2026-04-15 08:15:03,468 INFO Filtering and deduplicating articles.
+2026-04-15 08:15:03,468 INFO Filtering kept 17/17 article(s) in 0.00s.
+2026-04-15 08:15:03,469 INFO Selecting diverse candidates before LLM scoring.
+2026-04-15 08:15:03,469 INFO Pre-score diversity selection kept 17/17 article(s) in 0.00s.
+2026-04-15 08:15:03,469 INFO Scoring candidate articles with the configured LLM.
+2026-04-15 08:16:00,071 ERROR LLM scoring failed for article 'OpenAI急眼了！四页密信怒撕Claude，80亿营收全掺水': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 85,\n  "relevance_score": 92,\n  "novelty_score": 88,\n  "actionability_score": 65,\n  "summary": "OpenAI首席营收官Denise Dresser向全员发布内部备忘录，直指竞争对手Anthropic的三大软肋：采用恐惧叙事包装AI、算力储备严重落后（Anthropic 2027年仅7-8GW vs OpenAI目标30GW）、300亿营收中有80亿涉嫌注水（将AWS分成全额计入）。备忘录同时暗示与微软"划清界限"，将亚马逊定位为核心合作伙伴，披露未来90天五大')
+Raw LLM response:
+<think>
+这篇文章是关于OpenAI内部备忘录的新闻报道，主要内容包括：
+
+1. OpenAI首席营收官Denise Dresser发给员工的内部备忘录
+2. 备忘录中攻击竞争对手Anthropic（Claude的母公司）
+3. 攻击要点包括：
+   - Claude成为"宗教"式的狂热信仰
+   - Anthropic的算力远落后于OpenAI
+   - Anthropic 300亿营收中有80亿是"注水"
+4. OpenAI与微软关系疏远，转向亚马逊
+5. 披露了OpenAI接下来90天的五大计划，包括代号"Spud"的新旗舰模型
+
+现在我需要评估这篇新闻的信息价值、新颖度、可执行性和与AI资讯的相关性：
+
+信息价值：
+- 这是一篇重要的AI行业竞争动态报道
+- 涉及两大AI公司（OpenAI和Anthropic）的直接竞争
+- 包含具体的财务数据和算力对比
+- 披露了OpenAI的产品路线图
+- 新鲜度较高（2026年4月14日发布）
+
+新颖度：
+- 属于行业内部爆料性质的新闻
+- 涉及具体的内部代号和商业策略
+- 包含对财务数据的争议性解读
+
+可执行性：
+- 作为新闻资讯
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 85,
+  "relevance_score": 92,
+  "novelty_score": 88,
+  "actionability_score": 65,
+  "summary": "OpenAI首席营收官Denise Dresser向全员发布内部备忘录，直指竞争对手Anthropic的三大软肋：采用恐惧叙事包装AI、算力储备严重落后（Anthropic 2027年仅7-8GW vs OpenAI目标30GW）、300亿营收中有80亿涉嫌注水（将AWS分成全额计入）。备忘录同时暗示与微软"划清界限"，将亚马逊定位为核心合作伙伴，披露未来90天五大
+2026-04-15 08:17:47,730 ERROR LLM scoring failed for article '马斯克版微信亮相：支持中文，加密聊天，还专门防截屏': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 78,\n  "relevance_score": 85,\n  "novelty_score": 72,\n  "actionability_score": 45,\n  "summary": "马斯克正式推出名为XChat的聊天应用，定于4月17日上线，支持中文和加密聊天功能。该应用定位为"下一代端到端加密通讯应用"，集成Grok AI助手，但更像是从X平台独立出来的私信系统，缺乏微信的熟人社交特性。马斯克多年来公开表达对微信的赞赏，此次推出XChat是其打造"超级应用"战略的重要一步，但网友普遍对其能否成功持怀疑态度。",\n  "recommendati')
+Raw LLM response:
+<think>
+让我分析这篇关于"马斯克版微信"的新闻文章，判断其是否值得进入今天的资讯日报。
+
+**文章主要内容分析：**
+1. 马斯克推出了名为"XChat"的聊天应用
+2. 支持加密聊天、中文界面
+3. 类似微信但更像是把X的私信系统独立出来
+4. 集成了Grok AI
+5. 发布时间定在4月17日
+6. 讨论了马斯克对微信的"羡慕"历程
+7. 网友对此持怀疑态度
+
+**评分判断：**
+
+**整体价值 (overall_score):**
+- 新闻价值较高，涉及马斯克这位超级科技IP
+- 内容相对完整，有产品介绍、背景分析、网友反应
+- 属于科技圈热点话题
+- 预估分：78
+
+**相关性 (relevance_score):**
+- 与AI/技术高度相关（涉及Grok AI、加密技术）
+- 马斯克是科技圈核心人物
+- 预估分：85
+
+**新颖度 (novelty_score):**
+- 新闻性强，是刚发布的消息
+- 马斯克做"微信"这个概念本身就很有话题性
+- 但这种对比分析类文章不算特别新颖
+- 预估分：72
+
+**可执行性 (actionability_score):**
+
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 78,
+  "relevance_score": 85,
+  "novelty_score": 72,
+  "actionability_score": 45,
+  "summary": "马斯克正式推出名为XChat的聊天应用，定于4月17日上线，支持中文和加密聊天功能。该应用定位为"下一代端到端加密通讯应用"，集成Grok AI助手，但更像是从X平台独立出来的私信系统，缺乏微信的熟人社交特性。马斯克多年来公开表达对微信的赞赏，此次推出XChat是其打造"超级应用"战略的重要一步，但网友普遍对其能否成功持怀疑态度。",
+  "recommendati
+2026-04-15 08:18:04,262 ERROR LLM scoring failed for article '直面LeCun愿景，智在无界发布最强具身世界模型，20万小时人类视频屠榜6大榜单': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 92,\n  "relevance_score": 95,\n  "novelty_score": 88,\n  "actionability_score": 75,\n  "summary": "智在无界发布第三代具身世界模型Being-H0.7，基于20万小时人类视频数据训练，提出潜空间推理的全新范式。该模型不再追求像素级重建，而是学习类似"物理直觉"的快速判断机制，采用双分支设计（后验与先验视角）实现对未来演化的隐式建模。在6项全球权威评测中综合排名第一，是首个覆盖七大关键维度的通用世界模型。其训练成本不到Cosmos Policy的1%，推理速度是Fa')
+Raw LLM response:
+<think>
+Let me analyze this article about Being-H0.7, a embodied world model released by BeingBeyond (智在无界).
+
+The article discusses:
+1. A new embodied world model called Being-H0.7
+2. It uses 200,000 hours of human video data for training
+3. The model ranked first in 6 international benchmarks
+4. It's a "latent space reasoning" world model - not pixel-level prediction
+5. It combines physical understanding and physical interaction
+6. Training cost is less than 1% of Cosmos Policy
+7. 11x faster th
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 92,
+  "relevance_score": 95,
+  "novelty_score": 88,
+  "actionability_score": 75,
+  "summary": "智在无界发布第三代具身世界模型Being-H0.7，基于20万小时人类视频数据训练，提出潜空间推理的全新范式。该模型不再追求像素级重建，而是学习类似"物理直觉"的快速判断机制，采用双分支设计（后验与先验视角）实现对未来演化的隐式建模。在6项全球权威评测中综合排名第一，是首个覆盖七大关键维度的通用世界模型。其训练成本不到Cosmos Policy的1%，推理速度是Fa
+2026-04-15 08:19:58,501 INFO Scored 17 article(s) in 295.03s using concurrency=1; selected 10 final article(s).
+2026-04-15 08:19:58,501 INFO Rendered and wrote digest in 0.00s.
+2026-04-15 08:19:58,501 INFO Digest generated successfully in 296.88s: output/AI-digest_20260415_001958.md
+[2026-04-15 08:19:58] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260415_001958.md
+[2026-04-15 08:19:58] [2/3] 创建飞书文档...
+[2026-04-15 08:21:18] [2/3] 文档链接: https://feishu.cn/docx/BJ3PdM144ob46kxjmlLcRHUpnDg
+[2026-04-15 08:21:18] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月15日
+[2026-04-15 08:21:19] ========== 执行成功 ==========
+[2026-04-16 08:15:01] ========== 开始执行 ==========
+[2026-04-16 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-16 08:15:01,619 INFO Verifying Readwise token.
+2026-04-16 08:15:01,917 INFO Fetching documents from Readwise Reader.
+2026-04-16 08:15:02,314 INFO Fetched 14 article(s) in 0.40s (limit=30, location=feed, category=rss).
+2026-04-16 08:15:02,314 INFO Filtering and deduplicating articles.
+2026-04-16 08:15:02,314 INFO Filtering kept 14/14 article(s) in 0.00s.
+2026-04-16 08:15:02,314 INFO Selecting diverse candidates before LLM scoring.
+2026-04-16 08:15:02,314 INFO Pre-score diversity selection kept 14/14 article(s) in 0.00s.
+2026-04-16 08:15:02,314 INFO Scoring candidate articles with the configured LLM.
+2026-04-16 08:15:22,668 ERROR LLM scoring failed for article 'Trump’s posting even more AI-generated Trump-Jesus fanart': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 78,\n  "relevance_score": 88,\n  "novelty_score": 72,\n  "actionability_score": 35,\n  "summary": "特朗普在社交媒体发布AI生成的"特朗普-耶稣"图像，引发宗教团体争议。这些AI图像在传播过程中发生了诡异变化——云中士兵变成尖头无面的恶魔形象，人物表情从慈祥变得恐惧，建筑背景模糊化。文章揭示了AI生成图像在转发过程中的变形现象，并穿插了导演赫尔佐格对自己"疯狂企鹅"场景被制成梗图的幽默反应，以及华盛顿记者协会晚宴期间媒体与科技公司的合作动态分析。",\n  "rec')
+Raw LLM response:
+<think>
+Let me analyze this article about Trump's AI-generated Trump-Jesus fanart posted on social media.
+
+Key points:
+1. Trump posted AI-generated images of himself as Jesus Christ
+2. The images changed over time when reposted - showing disturbing transformations
+3. One version showed a soldier turning into a demon-like figure
+4. Werner Herzog's reaction to his "deranged penguin" scene being used as a meme
+5. Discussion of DC media/tech collaborations at WHCD
+
+Let me score this:
+
+**Overall Scor
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 78,
+  "relevance_score": 88,
+  "novelty_score": 72,
+  "actionability_score": 35,
+  "summary": "特朗普在社交媒体发布AI生成的"特朗普-耶稣"图像，引发宗教团体争议。这些AI图像在传播过程中发生了诡异变化——云中士兵变成尖头无面的恶魔形象，人物表情从慈祥变得恐惧，建筑背景模糊化。文章揭示了AI生成图像在转发过程中的变形现象，并穿插了导演赫尔佐格对自己"疯狂企鹅"场景被制成梗图的幽默反应，以及华盛顿记者协会晚宴期间媒体与科技公司的合作动态分析。",
+  "rec
+2026-04-16 08:16:52,067 ERROR LLM scoring failed for article '北大联合Llama-Factory推出DataFlex：工业级数据动态训练系统': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 83,\n  "relevance_score": 88,\n  "novelty_score": 75,\n  "actionability_score": 85,\n  "summary": "北京大学联合LLaMA-Factory等机构发布DataF\n\n我注意到北京大学与LLaMA-Factory团队合作推出的DataFlex框架具有显著的技术创新性。这个开源项目不仅解决了动态数据处理的技术难题，还提供了统一的实践平台。整体而言，这是一个值得关注的AI基础设施项目。\n</think>\n\n```json\n{\n  "overall_score": 83,\n ')
+Raw LLM response:
+<think>
+这是一篇关于北京大学联合多机构推出DataFlex数据动态训练系统的技术文章。让我分析一下这篇文章是否符合进入资讯日报的价值：
+
+**内容分析：**
+1. **技术重要性**：DataFlex是面向大模型训练的数据中心动态训练框架，解决了数据中心训练方法分散、难以复现的问题
+2. **机构背景**：北京大学张文涛教授、鄂维南院士团队联合LLaMA-Factory Team、OpenDataLab、上海AI Lab等知名机构
+3. **创新点**：
+   - 统一训练基础设施，整合动态样本选择、动态数据混合、动态样本加权三类核心能力
+   - 建立在大规模模型训练框架LLaMA-Factory之上
+   - 在Hugging Face Daily Papers月榜第一
+4. **实用性**：提供可复现的研究平台和面向真实训练的优化系统
+5. **开源信息**：GitHub仓库已公开，官方文档和视频教程完备
+
+**评分判断：**
+
+1. **overall_score（整体分数）**：文章技术含量高，来自顶级学术机构，有实际开源产出，且获得了Hugging Face榜单认可
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 83,
+  "relevance_score": 88,
+  "novelty_score": 75,
+  "actionability_score": 85,
+  "summary": "北京大学联合LLaMA-Factory等机构发布DataF
+
+我注意到北京大学与LLaMA-Factory团队合作推出的DataFlex框架具有显著的技术创新性。这个开源项目不仅解决了动态数据处理的技术难题，还提供了统一的实践平台。整体而言，这是一个值得关注的AI基础设施项目。
+</think>
+
+```json
+{
+  "overall_score": 83,
+ 
+2026-04-16 08:17:24,008 ERROR LLM scoring failed for article '今年最火的AI产品，不止龙虾｜榜单申报中': ValueError('Failed to parse LLM JSON response: {\n  "overall_score": 58,\n  "relevance_score": 75,\n  "novelty_score": 55,\n  "actionability_score": 70,\n  "summary": "量子位发布2026年度AIGC企业&产品评选活动通知，征集具有真实落地场景、用户规模增长、差异化体验的AI企业和产品参选。评选维度涵盖技术、产品、市场、潜力四个方面，报名截止4月27日，5月将公布结果并举办中国AIGC产业峰会。文章指出当前AI产品"爆火多、留存少"的现象，旨在挖掘真正跑通场景的产品和具备潜力的企业。",\n  "recommendation": "这')
+Raw LLM response:
+<think>
+让我分析这篇文章的内容和价值：
+
+1. **文章类型**：这是一篇活动推广/评选公告文章，来自量子位（知名AI科技媒体），主要内容是关于"2026年度值得关注的AIGC企业&产品"评选活动。
+
+2. **主要内容**：
+   - 介绍量子位正在举办AIGC行业评选活动
+   - 征集AI企业和产品的申报
+   - 截止日期：4月27日
+   - 评选维度包括技术、产品、市场、潜力等方面
+   - 5月将举办AIGC产业峰会
+
+3. **判断评估**：
+   
+   **信息价值**：
+   - 这是一个行业评选活动通知，有一定的信息价值
+   - 但主要是活动推广内容，而非深度资讯
+   - 对于AI行业从业者和企业来说有一定参考价值
+   
+   **新颖度**：
+   - 这是2026年的评选活动，相对较新
+   - 但本质上是常规的行业评选活动
+   
+   **可执行性**：
+   - 对于相关企业来说可以报名参与
+   - 提供了一定的参与路径
+   
+   **与AI/技术相关性**：
+   - 高相关性，涉及AIGC行业
+   
+4. **是否值得进入日报
+Traceback (most recent call last):
+  File "/root/code/wyRss/src/pipeline/ranking.py", line 72, in _score_single_article
+    payload = llm_client._extract_json(raw_content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/code/wyRss/src/clients/llm_client.py", line 106, in _extract_json
+    raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
+ValueError: Failed to parse LLM JSON response: {
+  "overall_score": 58,
+  "relevance_score": 75,
+  "novelty_score": 55,
+  "actionability_score": 70,
+  "summary": "量子位发布2026年度AIGC企业&产品评选活动通知，征集具有真实落地场景、用户规模增长、差异化体验的AI企业和产品参选。评选维度涵盖技术、产品、市场、潜力四个方面，报名截止4月27日，5月将公布结果并举办中国AIGC产业峰会。文章指出当前AI产品"爆火多、留存少"的现象，旨在挖掘真正跑通场景的产品和具备潜力的企业。",
+  "recommendation": "这
+2026-04-16 08:19:06,300 INFO Scored 14 article(s) in 243.99s using concurrency=1; selected 10 final article(s).
+2026-04-16 08:19:06,301 INFO Rendered and wrote digest in 0.00s.
+2026-04-16 08:19:06,301 INFO Digest generated successfully in 244.68s: output/AI-digest_20260416_001906.md
+[2026-04-16 08:19:06] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260416_001906.md
+[2026-04-16 08:19:06] [2/3] 创建飞书文档...
+[2026-04-16 08:20:26] [2/3] 文档链接: https://feishu.cn/docx/EtSDdqQisoejXCxctS8c5FCxnb7
+[2026-04-16 08:20:26] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月16日
+[2026-04-16 08:20:27] ========== 执行成功 ==========
+[2026-04-17 08:15:01] ========== 开始执行 ==========
+[2026-04-17 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-17 08:15:01,396 INFO Verifying Readwise token.
+2026-04-17 08:15:01,713 INFO Fetching documents from Readwise Reader.
+2026-04-17 08:15:02,825 INFO Fetched 15 article(s) in 1.11s (limit=30, location=feed, category=rss).
+2026-04-17 08:15:02,825 INFO Filtering and deduplicating articles.
+2026-04-17 08:15:02,825 INFO Filtering kept 15/15 article(s) in 0.00s.
+2026-04-17 08:15:02,825 INFO Selecting diverse candidates before LLM scoring.
+2026-04-17 08:15:02,826 INFO Pre-score diversity selection kept 15/15 article(s) in 0.00s.
+2026-04-17 08:15:02,826 INFO Scoring candidate articles with the configured LLM.
+2026-04-17 08:19:31,531 INFO Scored 15 article(s) in 268.71s using concurrency=1; selected 9 final article(s).
+2026-04-17 08:19:31,532 INFO Rendered and wrote digest in 0.00s.
+2026-04-17 08:19:31,532 INFO Digest generated successfully in 270.14s: output/AI-digest_20260417_001931.md
+[2026-04-17 08:19:31] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260417_001931.md
+[2026-04-17 08:19:31] [2/3] 创建飞书文档...
+[2026-04-17 08:20:42] [2/3] 文档链接: https://feishu.cn/docx/MgXPdSlmUo1k7rxCSD1chDS4nvw
+[2026-04-17 08:20:42] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月17日
+[2026-04-17 08:20:43] ========== 执行成功 ==========
+[2026-04-18 08:15:01] ========== 开始执行 ==========
+[2026-04-18 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-18 08:15:02,149 INFO Verifying Readwise token.
+2026-04-18 08:15:02,461 INFO Fetching documents from Readwise Reader.
+2026-04-18 08:15:02,833 INFO Fetched 6 article(s) in 0.37s (limit=30, location=feed, category=rss).
+2026-04-18 08:15:02,833 INFO Filtering and deduplicating articles.
+2026-04-18 08:15:02,833 INFO Filtering kept 6/6 article(s) in 0.00s.
+2026-04-18 08:15:02,833 INFO Selecting diverse candidates before LLM scoring.
+2026-04-18 08:15:02,833 INFO Pre-score diversity selection kept 6/6 article(s) in 0.00s.
+2026-04-18 08:15:02,833 INFO Scoring candidate articles with the configured LLM.
+2026-04-18 08:16:21,361 INFO Scored 6 article(s) in 78.53s using concurrency=1; selected 2 final article(s).
+2026-04-18 08:16:21,362 INFO Rendered and wrote digest in 0.00s.
+2026-04-18 08:16:21,362 INFO Digest generated successfully in 79.21s: output/AI-digest_20260418_001621.md
+[2026-04-18 08:16:21] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260418_001621.md
+[2026-04-18 08:16:21] [2/3] 创建飞书文档...
+[2026-04-18 08:16:43] [2/3] 文档链接: https://feishu.cn/docx/J02qds6J1oIYOQx7SM9cfA0Fn9f
+[2026-04-18 08:16:43] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月18日
+[2026-04-18 08:16:44] ========== 执行成功 ==========
+[2026-04-19 08:15:01] ========== 开始执行 ==========
+[2026-04-19 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-19 08:15:02,073 INFO Verifying Readwise token.
+2026-04-19 08:15:02,351 INFO Fetching documents from Readwise Reader.
+2026-04-19 08:15:02,626 INFO Fetched 0 article(s) in 0.28s (limit=30, location=feed, category=rss).
+2026-04-19 08:15:02,626 INFO Filtering and deduplicating articles.
+2026-04-19 08:15:02,626 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-19 08:15:02,626 INFO Selecting diverse candidates before LLM scoring.
+2026-04-19 08:15:02,626 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-19 08:15:02,626 INFO Scoring candidate articles with the configured LLM.
+2026-04-19 08:15:02,626 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-19 08:15:02,627 INFO Rendered and wrote digest in 0.00s.
+2026-04-19 08:15:02,627 INFO Digest generated successfully in 0.55s: output/AI-digest_20260419_001502.md
+[2026-04-19 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260419_001502.md
+[2026-04-19 08:15:02] [2/3] 创建飞书文档...
+[2026-04-19 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/Y1TGdMaauoyXsQxaHNkcQbVjnOg
+[2026-04-19 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月19日
+[2026-04-19 08:15:10] ========== 执行成功 ==========
+[2026-04-20 08:15:01] ========== 开始执行 ==========
+[2026-04-20 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-20 08:15:02,195 INFO Verifying Readwise token.
+2026-04-20 08:15:02,501 INFO Fetching documents from Readwise Reader.
+2026-04-20 08:15:02,802 INFO Fetched 0 article(s) in 0.30s (limit=30, location=feed, category=rss).
+2026-04-20 08:15:02,802 INFO Filtering and deduplicating articles.
+2026-04-20 08:15:02,802 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-20 08:15:02,802 INFO Selecting diverse candidates before LLM scoring.
+2026-04-20 08:15:02,802 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-20 08:15:02,802 INFO Scoring candidate articles with the configured LLM.
+2026-04-20 08:15:02,802 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-20 08:15:02,802 INFO Rendered and wrote digest in 0.00s.
+2026-04-20 08:15:02,802 INFO Digest generated successfully in 0.61s: output/AI-digest_20260420_001502.md
+[2026-04-20 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260420_001502.md
+[2026-04-20 08:15:02] [2/3] 创建飞书文档...
+[2026-04-20 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/EaFIdA2q6o6PaBxK4AWcRUCpn3c
+[2026-04-20 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月20日
+[2026-04-20 08:15:10] ========== 执行成功 ==========
+[2026-04-21 08:15:01] ========== 开始执行 ==========
+[2026-04-21 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-21 08:15:01,322 INFO Verifying Readwise token.
+2026-04-21 08:15:01,658 INFO Fetching documents from Readwise Reader.
+2026-04-21 08:15:01,945 INFO Fetched 0 article(s) in 0.29s (limit=30, location=feed, category=rss).
+2026-04-21 08:15:01,945 INFO Filtering and deduplicating articles.
+2026-04-21 08:15:01,945 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-21 08:15:01,945 INFO Selecting diverse candidates before LLM scoring.
+2026-04-21 08:15:01,945 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-21 08:15:01,945 INFO Scoring candidate articles with the configured LLM.
+2026-04-21 08:15:01,945 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-21 08:15:01,946 INFO Rendered and wrote digest in 0.00s.
+2026-04-21 08:15:01,946 INFO Digest generated successfully in 0.62s: output/AI-digest_20260421_001501.md
+[2026-04-21 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260421_001501.md
+[2026-04-21 08:15:02] [2/3] 创建飞书文档...
+[2026-04-21 08:15:08] [2/3] 文档链接: https://feishu.cn/docx/ZRAbdkgUWovGAlxx1lZc5vyBnJc
+[2026-04-21 08:15:08] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月21日
+[2026-04-21 08:15:09] ========== 执行成功 ==========
+[2026-04-22 08:15:01] ========== 开始执行 ==========
+[2026-04-22 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-22 08:15:01,322 INFO Verifying Readwise token.
+2026-04-22 08:15:01,686 INFO Fetching documents from Readwise Reader.
+2026-04-22 08:15:01,972 INFO Fetched 0 article(s) in 0.29s (limit=30, location=feed, category=rss).
+2026-04-22 08:15:01,972 INFO Filtering and deduplicating articles.
+2026-04-22 08:15:01,972 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-22 08:15:01,972 INFO Selecting diverse candidates before LLM scoring.
+2026-04-22 08:15:01,972 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-22 08:15:01,972 INFO Scoring candidate articles with the configured LLM.
+2026-04-22 08:15:01,972 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-22 08:15:01,973 INFO Rendered and wrote digest in 0.00s.
+2026-04-22 08:15:01,973 INFO Digest generated successfully in 0.65s: output/AI-digest_20260422_001501.md
+[2026-04-22 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260422_001501.md
+[2026-04-22 08:15:02] [2/3] 创建飞书文档...
+[2026-04-22 08:15:08] [2/3] 文档链接: https://feishu.cn/docx/VtshdYdrJo7QH3x6qeNcJRESnFd
+[2026-04-22 08:15:08] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月22日
+[2026-04-22 08:15:09] ========== 执行成功 ==========
+[2026-04-23 08:15:01] ========== 开始执行 ==========
+[2026-04-23 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-23 08:15:01,734 INFO Verifying Readwise token.
+2026-04-23 08:15:02,019 INFO Fetching documents from Readwise Reader.
+2026-04-23 08:15:02,325 INFO Fetched 0 article(s) in 0.31s (limit=30, location=feed, category=rss).
+2026-04-23 08:15:02,325 INFO Filtering and deduplicating articles.
+2026-04-23 08:15:02,325 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-23 08:15:02,326 INFO Selecting diverse candidates before LLM scoring.
+2026-04-23 08:15:02,326 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-23 08:15:02,326 INFO Scoring candidate articles with the configured LLM.
+2026-04-23 08:15:02,326 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-23 08:15:02,326 INFO Rendered and wrote digest in 0.00s.
+2026-04-23 08:15:02,326 INFO Digest generated successfully in 0.59s: output/AI-digest_20260423_001502.md
+[2026-04-23 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260423_001502.md
+[2026-04-23 08:15:02] [2/3] 创建飞书文档...
+[2026-04-23 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/R9eXdMIfWohgqoxqQPScdEYPn82
+[2026-04-23 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月23日
+[2026-04-23 08:15:10] ========== 执行成功 ==========
+[2026-04-24 08:15:01] ========== 开始执行 ==========
+[2026-04-24 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-24 08:15:01,725 INFO Verifying Readwise token.
+2026-04-24 08:15:02,031 INFO Fetching documents from Readwise Reader.
+2026-04-24 08:15:02,321 INFO Fetched 0 article(s) in 0.29s (limit=30, location=feed, category=rss).
+2026-04-24 08:15:02,321 INFO Filtering and deduplicating articles.
+2026-04-24 08:15:02,321 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-24 08:15:02,321 INFO Selecting diverse candidates before LLM scoring.
+2026-04-24 08:15:02,321 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-24 08:15:02,321 INFO Scoring candidate articles with the configured LLM.
+2026-04-24 08:15:02,321 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-24 08:15:02,322 INFO Rendered and wrote digest in 0.00s.
+2026-04-24 08:15:02,322 INFO Digest generated successfully in 0.60s: output/AI-digest_20260424_001502.md
+[2026-04-24 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260424_001502.md
+[2026-04-24 08:15:02] [2/3] 创建飞书文档...
+[2026-04-24 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/UxrfdlBH1oSL5yx5nMMckca5nkn
+[2026-04-24 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月24日
+[2026-04-24 08:15:10] ========== 执行成功 ==========
+[2026-04-25 08:15:01] ========== 开始执行 ==========
+[2026-04-25 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-25 08:15:01,508 INFO Verifying Readwise token.
+2026-04-25 08:15:01,803 INFO Fetching documents from Readwise Reader.
+2026-04-25 08:15:02,081 INFO Fetched 0 article(s) in 0.28s (limit=30, location=feed, category=rss).
+2026-04-25 08:15:02,081 INFO Filtering and deduplicating articles.
+2026-04-25 08:15:02,081 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-25 08:15:02,081 INFO Selecting diverse candidates before LLM scoring.
+2026-04-25 08:15:02,081 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-25 08:15:02,081 INFO Scoring candidate articles with the configured LLM.
+2026-04-25 08:15:02,081 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-25 08:15:02,081 INFO Rendered and wrote digest in 0.00s.
+2026-04-25 08:15:02,082 INFO Digest generated successfully in 0.57s: output/AI-digest_20260425_001502.md
+[2026-04-25 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260425_001502.md
+[2026-04-25 08:15:02] [2/3] 创建飞书文档...
+[2026-04-25 08:15:08] [2/3] 文档链接: https://feishu.cn/docx/C8cZdFbBGoB4HixoKdvcjechn7f
+[2026-04-25 08:15:08] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月25日
+[2026-04-25 08:15:09] ========== 执行成功 ==========
+[2026-04-26 08:15:01] ========== 开始执行 ==========
+[2026-04-26 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-26 08:15:01,407 INFO Verifying Readwise token.
+2026-04-26 08:15:01,718 INFO Fetching documents from Readwise Reader.
+2026-04-26 08:15:02,015 INFO Fetched 0 article(s) in 0.30s (limit=30, location=feed, category=rss).
+2026-04-26 08:15:02,016 INFO Filtering and deduplicating articles.
+2026-04-26 08:15:02,016 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-26 08:15:02,016 INFO Selecting diverse candidates before LLM scoring.
+2026-04-26 08:15:02,016 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-26 08:15:02,016 INFO Scoring candidate articles with the configured LLM.
+2026-04-26 08:15:02,016 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-26 08:15:02,016 INFO Rendered and wrote digest in 0.00s.
+2026-04-26 08:15:02,016 INFO Digest generated successfully in 0.61s: output/AI-digest_20260426_001502.md
+[2026-04-26 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260426_001502.md
+[2026-04-26 08:15:02] [2/3] 创建飞书文档...
+[2026-04-26 08:15:08] [2/3] 文档链接: https://feishu.cn/docx/LEBZd1K99ogRghxGolhcgnq3nEd
+[2026-04-26 08:15:08] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月26日
+[2026-04-26 08:15:09] ========== 执行成功 ==========
+[2026-04-27 08:15:01] ========== 开始执行 ==========
+[2026-04-27 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-27 08:15:01,297 INFO Verifying Readwise token.
+2026-04-27 08:15:01,706 INFO Fetching documents from Readwise Reader.
+2026-04-27 08:15:01,998 INFO Fetched 0 article(s) in 0.29s (limit=30, location=feed, category=rss).
+2026-04-27 08:15:01,998 INFO Filtering and deduplicating articles.
+2026-04-27 08:15:01,998 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-27 08:15:01,998 INFO Selecting diverse candidates before LLM scoring.
+2026-04-27 08:15:01,998 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-27 08:15:01,998 INFO Scoring candidate articles with the configured LLM.
+2026-04-27 08:15:01,998 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-27 08:15:01,999 INFO Rendered and wrote digest in 0.00s.
+2026-04-27 08:15:01,999 INFO Digest generated successfully in 0.70s: output/AI-digest_20260427_001501.md
+[2026-04-27 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260427_001501.md
+[2026-04-27 08:15:02] [2/3] 创建飞书文档...
+[2026-04-27 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/ISTvdaXcWoDnl1xcD4Ycc0s4nFe
+[2026-04-27 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月27日
+[2026-04-27 08:15:10] ========== 执行成功 ==========
+[2026-04-28 08:15:01] ========== 开始执行 ==========
+[2026-04-28 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-28 08:15:01,559 INFO Verifying Readwise token.
+2026-04-28 08:15:01,862 INFO Fetching documents from Readwise Reader.
+2026-04-28 08:15:02,281 INFO Fetched 0 article(s) in 0.42s (limit=30, location=feed, category=rss).
+2026-04-28 08:15:02,281 INFO Filtering and deduplicating articles.
+2026-04-28 08:15:02,281 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-28 08:15:02,281 INFO Selecting diverse candidates before LLM scoring.
+2026-04-28 08:15:02,281 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-28 08:15:02,281 INFO Scoring candidate articles with the configured LLM.
+2026-04-28 08:15:02,281 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-28 08:15:02,282 INFO Rendered and wrote digest in 0.00s.
+2026-04-28 08:15:02,282 INFO Digest generated successfully in 0.72s: output/AI-digest_20260428_001502.md
+[2026-04-28 08:15:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260428_001502.md
+[2026-04-28 08:15:02] [2/3] 创建飞书文档...
+[2026-04-28 08:15:09] [2/3] 文档链接: https://feishu.cn/docx/FrdcdwvHroTXAWxbrCqc8JaUn3b
+[2026-04-28 08:15:09] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月28日
+[2026-04-28 08:15:10] ========== 执行成功 ==========
+[2026-04-29 08:15:01] ========== 开始执行 ==========
+[2026-04-29 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-29 08:15:08,549 INFO Verifying Readwise token.
+2026-04-29 08:15:09,167 INFO Fetching documents from Readwise Reader.
+2026-04-29 08:15:09,497 INFO Fetched 0 article(s) in 0.33s (limit=30, location=feed, category=rss).
+2026-04-29 08:15:09,497 INFO Filtering and deduplicating articles.
+2026-04-29 08:15:09,497 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-29 08:15:09,497 INFO Selecting diverse candidates before LLM scoring.
+2026-04-29 08:15:09,497 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-29 08:15:09,497 INFO Scoring candidate articles with the configured LLM.
+2026-04-29 08:15:09,497 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-29 08:15:09,497 INFO Rendered and wrote digest in 0.00s.
+2026-04-29 08:15:09,497 INFO Digest generated successfully in 0.95s: output/AI-digest_20260429_001509.md
+[2026-04-29 08:15:09] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260429_001509.md
+[2026-04-29 08:15:09] [2/3] 创建飞书文档...
+[2026-04-29 08:15:16] [2/3] 文档链接: https://feishu.cn/docx/DBugdyFuzonDxExjSMGcrt27nPj
+[2026-04-29 08:15:16] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月29日
+[2026-04-29 08:15:17] ========== 执行成功 ==========
+[2026-04-30 08:15:01] ========== 开始执行 ==========
+[2026-04-30 08:15:01] [1/3] 生成日报 Markdown...
+2026-04-30 08:15:02,005 INFO Verifying Readwise token.
+2026-04-30 08:15:02,776 INFO Fetching documents from Readwise Reader.
+2026-04-30 08:15:03,058 INFO Fetched 0 article(s) in 0.28s (limit=30, location=feed, category=rss).
+2026-04-30 08:15:03,058 INFO Filtering and deduplicating articles.
+2026-04-30 08:15:03,058 INFO Filtering kept 0/0 article(s) in 0.00s.
+2026-04-30 08:15:03,058 INFO Selecting diverse candidates before LLM scoring.
+2026-04-30 08:15:03,058 INFO Pre-score diversity selection kept 0/0 article(s) in 0.00s.
+2026-04-30 08:15:03,059 INFO Scoring candidate articles with the configured LLM.
+2026-04-30 08:15:03,059 INFO Scored 0 article(s) in 0.00s using concurrency=1; selected 0 final article(s).
+2026-04-30 08:15:03,059 INFO Rendered and wrote digest in 0.00s.
+2026-04-30 08:15:03,059 INFO Digest generated successfully in 1.05s: output/AI-digest_20260430_001503.md
+[2026-04-30 08:15:03] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260430_001503.md
+[2026-04-30 08:15:03] [2/3] 创建飞书文档...
+[2026-04-30 08:15:10] [2/3] 文档链接: https://feishu.cn/docx/KP1OdU58VoKV5axYKuCcNCv3nng
+[2026-04-30 08:15:10] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年04月30日
+[2026-04-30 08:15:11] ========== 执行成功 ==========
+[2026-05-01 08:15:01] ========== 开始执行 ==========
+[2026-05-01 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-01 08:15:01,930 INFO Verifying Readwise token.
+2026-05-01 08:15:02,231 INFO Fetching documents from Readwise Reader.
+2026-05-01 08:15:04,643 INFO Fetched 30 article(s) in 2.41s (limit=30, location=feed, category=rss).
+2026-05-01 08:15:04,643 INFO Filtering and deduplicating articles.
+2026-05-01 08:15:04,643 INFO Filtering kept 30/30 article(s) in 0.00s.
+2026-05-01 08:15:04,643 INFO Selecting diverse candidates before LLM scoring.
+2026-05-01 08:15:04,644 INFO Pre-score diversity selection kept 20/30 article(s) in 0.00s.
+2026-05-01 08:15:04,644 INFO Scoring candidate articles with the configured LLM.
+2026-05-01 08:19:36,035 INFO Scored 20 article(s) in 271.39s using concurrency=1; selected 4 final article(s).
+2026-05-01 08:19:36,036 INFO Rendered and wrote digest in 0.00s.
+2026-05-01 08:19:36,036 INFO Digest generated successfully in 274.11s: output/AI-digest_20260501_001936.md
+[2026-05-01 08:19:36] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260501_001936.md
+[2026-05-01 08:19:36] [2/3] 创建飞书文档...
+[2026-05-01 08:20:11] [2/3] 文档链接: https://feishu.cn/docx/NaKZdTcGwo9FJYxLGEKced4rne7
+[2026-05-01 08:20:11] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月01日
+[2026-05-01 08:20:12] ========== 执行成功 ==========
+[2026-05-02 08:15:01] ========== 开始执行 ==========
+[2026-05-02 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-02 08:15:01,895 INFO Verifying Readwise token.
+2026-05-02 08:15:02,181 INFO Fetching documents from Readwise Reader.
+2026-05-02 08:15:03,034 INFO Fetched 13 article(s) in 0.85s (limit=30, location=feed, category=rss).
+2026-05-02 08:15:03,034 INFO Filtering and deduplicating articles.
+2026-05-02 08:15:03,035 INFO Filtering kept 13/13 article(s) in 0.00s.
+2026-05-02 08:15:03,035 INFO Selecting diverse candidates before LLM scoring.
+2026-05-02 08:15:03,035 INFO Pre-score diversity selection kept 13/13 article(s) in 0.00s.
+2026-05-02 08:15:03,035 INFO Scoring candidate articles with the configured LLM.
+2026-05-02 08:19:06,943 INFO Scored 13 article(s) in 243.91s using concurrency=1; selected 10 final article(s).
+2026-05-02 08:19:06,944 INFO Rendered and wrote digest in 0.00s.
+2026-05-02 08:19:06,944 INFO Digest generated successfully in 245.05s: output/AI-digest_20260502_001906.md
+[2026-05-02 08:19:06] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260502_001906.md
+[2026-05-02 08:19:06] [2/3] 创建飞书文档...
+[2026-05-02 08:20:27] [2/3] 文档链接: https://feishu.cn/docx/DLVddS2YHo2ZupxTGQFcyjsHnHd
+[2026-05-02 08:20:27] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月02日
+[2026-05-02 08:20:28] ========== 执行成功 ==========
+[2026-05-03 08:15:01] ========== 开始执行 ==========
+[2026-05-03 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-03 08:15:02,246 INFO Verifying Readwise token.
+2026-05-03 08:15:02,549 INFO Fetching documents from Readwise Reader.
+2026-05-03 08:15:03,380 INFO Fetched 8 article(s) in 0.83s (limit=30, location=feed, category=rss).
+2026-05-03 08:15:03,380 INFO Filtering and deduplicating articles.
+2026-05-03 08:15:03,380 INFO Filtering kept 8/8 article(s) in 0.00s.
+2026-05-03 08:15:03,380 INFO Selecting diverse candidates before LLM scoring.
+2026-05-03 08:15:03,380 INFO Pre-score diversity selection kept 8/8 article(s) in 0.00s.
+2026-05-03 08:15:03,380 INFO Scoring candidate articles with the configured LLM.
+2026-05-03 08:16:42,720 INFO Scored 8 article(s) in 99.34s using concurrency=1; selected 6 final article(s).
+2026-05-03 08:16:42,721 INFO Rendered and wrote digest in 0.00s.
+2026-05-03 08:16:42,721 INFO Digest generated successfully in 100.47s: output/AI-digest_20260503_001642.md
+[2026-05-03 08:16:42] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260503_001642.md
+[2026-05-03 08:16:42] [2/3] 创建飞书文档...
+[2026-05-03 08:17:32] [2/3] 文档链接: https://feishu.cn/docx/JuzvdyQxxoK5IqxD2nBcJtHBnFb
+[2026-05-03 08:17:32] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月03日
+[2026-05-03 08:17:33] ========== 执行成功 ==========
+[2026-05-04 08:15:01] ========== 开始执行 ==========
+[2026-05-04 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-04 08:15:07,244 INFO Verifying Readwise token.
+2026-05-04 08:15:07,722 INFO Fetching documents from Readwise Reader.
+2026-05-04 08:15:08,110 INFO Fetched 8 article(s) in 0.39s (limit=30, location=feed, category=rss).
+2026-05-04 08:15:08,110 INFO Filtering and deduplicating articles.
+2026-05-04 08:15:08,110 INFO Filtering kept 8/8 article(s) in 0.00s.
+2026-05-04 08:15:08,110 INFO Selecting diverse candidates before LLM scoring.
+2026-05-04 08:15:08,110 INFO Pre-score diversity selection kept 8/8 article(s) in 0.00s.
+2026-05-04 08:15:08,110 INFO Scoring candidate articles with the configured LLM.
+2026-05-04 08:17:12,963 INFO Scored 8 article(s) in 124.85s using concurrency=1; selected 6 final article(s).
+2026-05-04 08:17:12,963 INFO Rendered and wrote digest in 0.00s.
+2026-05-04 08:17:12,964 INFO Digest generated successfully in 125.72s: output/AI-digest_20260504_001712.md
+[2026-05-04 08:17:13] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260504_001712.md
+[2026-05-04 08:17:13] [2/3] 创建飞书文档...
+[2026-05-04 08:18:04] [2/3] 文档链接: https://feishu.cn/docx/FEBUdX6INobwT5xFjeccrgNJnhg
+[2026-05-04 08:18:04] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月04日
+[2026-05-04 08:18:05] ========== 执行成功 ==========
+[2026-05-05 08:15:02] ========== 开始执行 ==========
+[2026-05-05 08:15:02] [1/3] 生成日报 Markdown...
+2026-05-05 08:15:02,252 INFO Verifying Readwise token.
+2026-05-05 08:15:03,008 INFO Fetching documents from Readwise Reader.
+2026-05-05 08:15:03,949 INFO Fetched 13 article(s) in 0.94s (limit=30, location=feed, category=rss).
+2026-05-05 08:15:03,949 INFO Filtering and deduplicating articles.
+2026-05-05 08:15:03,949 INFO Filtering kept 13/13 article(s) in 0.00s.
+2026-05-05 08:15:03,949 INFO Selecting diverse candidates before LLM scoring.
+2026-05-05 08:15:03,949 INFO Pre-score diversity selection kept 13/13 article(s) in 0.00s.
+2026-05-05 08:15:03,949 INFO Scoring candidate articles with the configured LLM.
+2026-05-05 08:19:05,369 INFO Scored 13 article(s) in 241.42s using concurrency=1; selected 10 final article(s).
+2026-05-05 08:19:05,369 INFO Rendered and wrote digest in 0.00s.
+2026-05-05 08:19:05,369 INFO Digest generated successfully in 243.12s: output/AI-digest_20260505_001905.md
+[2026-05-05 08:19:05] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260505_001905.md
+[2026-05-05 08:19:05] [2/3] 创建飞书文档...
+[2026-05-05 08:20:24] [2/3] 文档链接: https://feishu.cn/docx/P1IIdQUmRoSPhixSbhQcahL0nGe
+[2026-05-05 08:20:24] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月05日
+[2026-05-05 08:20:25] ========== 执行成功 ==========
+[2026-05-06 08:15:01] ========== 开始执行 ==========
+[2026-05-06 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-06 08:15:06,884 INFO Verifying Readwise token.
+2026-05-06 08:15:07,509 INFO Fetching documents from Readwise Reader.
+2026-05-06 08:15:08,017 INFO Fetched 20 article(s) in 0.51s (limit=30, location=feed, category=rss).
+2026-05-06 08:15:08,017 INFO Filtering and deduplicating articles.
+2026-05-06 08:15:08,017 INFO Filtering kept 20/20 article(s) in 0.00s.
+2026-05-06 08:15:08,017 INFO Selecting diverse candidates before LLM scoring.
+2026-05-06 08:15:08,017 INFO Pre-score diversity selection kept 20/20 article(s) in 0.00s.
+2026-05-06 08:15:08,017 INFO Scoring candidate articles with the configured LLM.
+2026-05-06 08:20:42,374 INFO Scored 20 article(s) in 334.36s using concurrency=1; selected 10 final article(s).
+2026-05-06 08:20:42,376 INFO Rendered and wrote digest in 0.00s.
+2026-05-06 08:20:42,376 INFO Digest generated successfully in 335.49s: output/AI-digest_20260506_002042.md
+[2026-05-06 08:20:42] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260506_002042.md
+[2026-05-06 08:20:42] [2/3] 创建飞书文档...
+[2026-05-06 08:22:03] [2/3] 文档链接: https://feishu.cn/docx/C4SwdL1d1oKE56xbAqCcvPQyn6T
+[2026-05-06 08:22:03] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月06日
+[2026-05-06 08:22:04] ========== 执行成功 ==========
+[2026-05-07 08:15:01] ========== 开始执行 ==========
+[2026-05-07 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-07 08:15:05,583 INFO Verifying Readwise token.
+2026-05-07 08:15:06,090 INFO Fetching documents from Readwise Reader.
+2026-05-07 08:15:06,667 INFO Fetched 18 article(s) in 0.58s (limit=30, location=feed, category=rss).
+2026-05-07 08:15:06,668 INFO Filtering and deduplicating articles.
+2026-05-07 08:15:06,668 INFO Filtering kept 18/18 article(s) in 0.00s.
+2026-05-07 08:15:06,668 INFO Selecting diverse candidates before LLM scoring.
+2026-05-07 08:15:06,668 INFO Pre-score diversity selection kept 18/18 article(s) in 0.00s.
+2026-05-07 08:15:06,668 INFO Scoring candidate articles with the configured LLM.
+2026-05-07 08:20:02,690 INFO Scored 18 article(s) in 296.02s using concurrency=1; selected 10 final article(s).
+2026-05-07 08:20:02,691 INFO Rendered and wrote digest in 0.00s.
+2026-05-07 08:20:02,691 INFO Digest generated successfully in 297.11s: output/AI-digest_20260507_002002.md
+[2026-05-07 08:20:02] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260507_002002.md
+[2026-05-07 08:20:02] [2/3] 创建飞书文档...
+[2026-05-07 08:21:23] [2/3] 文档链接: https://feishu.cn/docx/TPprdkGi7oPh2xxlVR0clV2Qngg
+[2026-05-07 08:21:23] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月07日
+[2026-05-07 08:21:24] ========== 执行成功 ==========
+[2026-05-08 08:15:01] ========== 开始执行 ==========
+[2026-05-08 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-08 08:15:06,200 INFO Verifying Readwise token.
+2026-05-08 08:15:06,790 INFO Fetching documents from Readwise Reader.
+2026-05-08 08:15:07,179 INFO Fetched 11 article(s) in 0.39s (limit=30, location=feed, category=rss).
+2026-05-08 08:15:07,179 INFO Filtering and deduplicating articles.
+2026-05-08 08:15:07,179 INFO Filtering kept 11/11 article(s) in 0.00s.
+2026-05-08 08:15:07,179 INFO Selecting diverse candidates before LLM scoring.
+2026-05-08 08:15:07,179 INFO Pre-score diversity selection kept 11/11 article(s) in 0.00s.
+2026-05-08 08:15:07,179 INFO Scoring candidate articles with the configured LLM.
+2026-05-08 08:18:38,606 INFO Scored 11 article(s) in 211.43s using concurrency=1; selected 9 final article(s).
+2026-05-08 08:18:38,608 INFO Rendered and wrote digest in 0.00s.
+2026-05-08 08:18:38,609 INFO Digest generated successfully in 212.41s: output/AI-digest_20260508_001838.md
+[2026-05-08 08:18:38] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260508_001838.md
+[2026-05-08 08:18:38] [2/3] 创建飞书文档...
+[2026-05-08 08:19:52] [2/3] 文档链接: https://feishu.cn/docx/TWRqdcBkjoeqqpxVgANcDG67nIg
+[2026-05-08 08:19:52] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月08日
+[2026-05-08 08:19:53] ========== 执行成功 ==========
+[2026-05-09 08:15:02] ========== 开始执行 ==========
+[2026-05-09 08:15:02] [1/3] 生成日报 Markdown...
+2026-05-09 08:15:06,764 INFO Verifying Readwise token.
+2026-05-09 08:15:07,266 INFO Fetching documents from Readwise Reader.
+2026-05-09 08:15:08,698 INFO Fetched 16 article(s) in 1.43s (limit=30, location=feed, category=rss).
+2026-05-09 08:15:08,698 INFO Filtering and deduplicating articles.
+2026-05-09 08:15:08,698 INFO Filtering kept 16/16 article(s) in 0.00s.
+2026-05-09 08:15:08,698 INFO Selecting diverse candidates before LLM scoring.
+2026-05-09 08:15:08,699 INFO Pre-score diversity selection kept 16/16 article(s) in 0.00s.
+2026-05-09 08:15:08,699 INFO Scoring candidate articles with the configured LLM.
+2026-05-09 08:19:08,331 INFO Scored 16 article(s) in 239.63s using concurrency=1; selected 9 final article(s).
+2026-05-09 08:19:08,333 INFO Rendered and wrote digest in 0.00s.
+2026-05-09 08:19:08,333 INFO Digest generated successfully in 241.57s: output/AI-digest_20260509_001908.md
+[2026-05-09 08:19:08] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260509_001908.md
+[2026-05-09 08:19:08] [2/3] 创建飞书文档...
+[2026-05-09 08:20:25] [2/3] 文档链接: https://feishu.cn/docx/B578dzMeGo2xqOxUKW3cusxGn4g
+[2026-05-09 08:20:25] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月09日
+[2026-05-09 08:20:26] ========== 执行成功 ==========
+[2026-05-10 08:15:01] ========== 开始执行 ==========
+[2026-05-10 08:15:01] [1/3] 生成日报 Markdown...
+2026-05-10 08:15:06,050 INFO Verifying Readwise token.
+2026-05-10 08:15:06,423 INFO Fetching documents from Readwise Reader.
+2026-05-10 08:15:06,885 INFO Fetched 14 article(s) in 0.46s (limit=30, location=feed, category=rss).
+2026-05-10 08:15:06,886 INFO Filtering and deduplicating articles.
+2026-05-10 08:15:06,886 INFO Filtering kept 14/14 article(s) in 0.00s.
+2026-05-10 08:15:06,886 INFO Selecting diverse candidates before LLM scoring.
+2026-05-10 08:15:06,886 INFO Pre-score diversity selection kept 14/14 article(s) in 0.00s.
+2026-05-10 08:15:06,886 INFO Scoring candidate articles with the configured LLM.
+2026-05-10 08:20:23,092 INFO Scored 14 article(s) in 316.21s using concurrency=1; selected 7 final article(s).
+2026-05-10 08:20:23,092 INFO Rendered and wrote digest in 0.00s.
+2026-05-10 08:20:23,093 INFO Digest generated successfully in 317.04s: output/AI-digest_20260510_002023.md
+[2026-05-10 08:20:23] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260510_002023.md
+[2026-05-10 08:20:23] [2/3] 创建飞书文档...
+[2026-05-10 08:21:22] [2/3] 文档链接: https://feishu.cn/docx/P9hddC30uoLWJpxjRPDcu4hEnq3
+[2026-05-10 08:21:22] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月10日
+[2026-05-10 08:21:23] ========== 执行成功 ==========
+[2026-05-11 08:15:02] ========== 开始执行 ==========
+[2026-05-11 08:15:02] [1/3] 生成日报 Markdown...
+2026-05-11 08:15:06,103 INFO Verifying Readwise token.
+2026-05-11 08:15:06,456 INFO Fetching documents from Readwise Reader.
+2026-05-11 08:15:06,830 INFO Fetched 9 article(s) in 0.37s (limit=30, location=feed, category=rss).
+2026-05-11 08:15:06,831 INFO Filtering and deduplicating articles.
+2026-05-11 08:15:06,831 INFO Filtering kept 9/9 article(s) in 0.00s.
+2026-05-11 08:15:06,831 INFO Selecting diverse candidates before LLM scoring.
+2026-05-11 08:15:06,831 INFO Pre-score diversity selection kept 9/9 article(s) in 0.00s.
+2026-05-11 08:15:06,831 INFO Scoring candidate articles with the configured LLM.
+2026-05-11 08:18:06,623 INFO Scored 9 article(s) in 179.79s using concurrency=1; selected 6 final article(s).
+2026-05-11 08:18:06,625 INFO Rendered and wrote digest in 0.00s.
+2026-05-11 08:18:06,625 INFO Digest generated successfully in 180.52s: output/AI-digest_20260511_001806.md
+[2026-05-11 08:18:06] [1/3] 日报文件: /root/code/wyRss/output/AI-digest_20260511_001806.md
+[2026-05-11 08:18:06] [2/3] 创建飞书文档...
+[2026-05-11 08:18:57] [2/3] 文档链接: https://feishu.cn/docx/AspxdR63womjtwxwV3DcHvoAn5f
+[2026-05-11 08:18:57] [3/3] 发送飞书消息: 📰 Readwise 日报 - 2026年05月11日
+[2026-05-11 08:18:58] ========== 执行成功 ==========
