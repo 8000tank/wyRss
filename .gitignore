@@ -1,25 +1,51 @@
-# Python-generated files
+# Python
 __pycache__/
-*.py[oc]
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
+.eggs/
 
 # Virtual environments
-.venv
+.venv/
+venv/
+ENV/
 
-# Environment variables (contains secrets)
+# Environment and secrets
 .env
+.env.*
+!.env.example
 
-# Output files
+# Project output
 output/
 
-# IDE
-.vscode/
+# Testing and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+*.log
+
+# IDE (JetBrains)
 .idea/
+
+# Editor swap files
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
