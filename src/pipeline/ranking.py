@@ -66,8 +66,10 @@ def _score_single_article(
         f"{_build_article_payload(article, max_input_chars)}"
     )
 
+    raw_content = None
     try:
-        payload = llm_client.chat_json(system_prompt=system_prompt, user_prompt=user_prompt)
+        raw_content = llm_client.chat(system_prompt=system_prompt, user_prompt=user_prompt)
+        payload = llm_client._extract_json(raw_content)
         return ScoredArticle(
             article=article,
             overall_score=int(payload["overall_score"]),
@@ -77,13 +79,14 @@ def _score_single_article(
             summary=str(payload["summary"]).strip(),
             recommendation=str(payload["recommendation"]).strip(),
             keywords=_coerce_keywords(payload.get("keywords")),
-            raw_response=str(payload),
+            raw_response=raw_content,
         )
     except Exception as e:
         logger.error(
-            "LLM scoring failed for article '%s': %s",
+            "LLM scoring failed for article '%s': %s\nRaw LLM response:\n%s",
             article.title[:80],
             repr(e),
+            raw_content[:500] if raw_content else "(unavailable)",
             exc_info=True,
         )
         return _fallback_scored_article(article)
