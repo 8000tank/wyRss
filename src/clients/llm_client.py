@@ -17,11 +17,15 @@ class LLMClient:
         model: str,
         timeout_seconds: int = 60,
         temperature: float = 0.2,
+        max_tokens: int = 4096,
+        extra_body: dict[str, Any] | None = None,
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.timeout_seconds = timeout_seconds
         self.temperature = temperature
+        self.max_tokens = max_tokens
+        self.extra_body = extra_body or {}
         self._headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -37,18 +41,21 @@ class LLMClient:
         return session
 
     def chat(self, *, system_prompt: str, user_prompt: str) -> str:
+        request_body: dict[str, Any] = {
+            "model": self.model,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        }
+        request_body.update(self.extra_body)
+
         response = self._get_session().post(
             f"{self.base_url}/chat/completions",
             timeout=self.timeout_seconds,
-            json={
-                "model": self.model,
-                "temperature": self.temperature,
-                "max_tokens": 4096,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-            },
+            json=request_body,
         )
         response.raise_for_status()
         payload = response.json()

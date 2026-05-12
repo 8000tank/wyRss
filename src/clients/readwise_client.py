@@ -9,6 +9,7 @@ from typing import Any
 
 import requests
 
+from src.config import FetchBucket
 from src.models import Article
 
 
@@ -87,6 +88,37 @@ class ReadwiseClient:
                 continue
             response.raise_for_status()
             return response.json()
+
+    def list_documents_by_buckets(
+        self,
+        buckets: list[FetchBucket],
+        *,
+        updated_after: datetime | None = None,
+        location: str | None = None,
+        with_html_content: bool = True,
+        limit_per_page: int = 100,
+    ) -> list[Article]:
+        """Fetch documents from multiple category buckets and merge by id.
+
+        Each bucket has category, max_items and optional location. If a bucket
+        location is unset, the caller-level ``location`` is used. Articles are
+        deduplicated by Readwise document id; URL-level dedupe is left to
+        ``filter_articles`` so each layer keeps a single responsibility.
+        """
+        merged: dict[str, Article] = {}
+        for bucket in buckets:
+            articles = self.list_documents(
+                updated_after=updated_after,
+                location=bucket.location if bucket.location is not None else location,
+                category=bucket.category,
+                with_html_content=with_html_content,
+                limit_per_page=limit_per_page,
+                max_items=bucket.max_items,
+            )
+            for article in articles:
+                if article.id not in merged:
+                    merged[article.id] = article
+        return list(merged.values())
 
     def list_documents(
         self,

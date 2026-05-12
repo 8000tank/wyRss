@@ -28,6 +28,8 @@ def real_llm_client() -> LLMClient:
         model=settings.llm_model,
         timeout_seconds=settings.llm_timeout_seconds,
         temperature=settings.llm_temperature,
+        max_tokens=settings.llm_max_tokens,
+        extra_body=settings.llm_extra_body(),
     )
 
 

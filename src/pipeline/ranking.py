@@ -6,8 +6,18 @@ from typing import Any
 
 from src.clients.llm_client import LLMClient
 from src.models import Article, ScoredArticle
+from src.pipeline.source_taxonomy import content_type_for, publisher_key
 
 logger = logging.getLogger(__name__)
+
+_REQUIRED_SCORING_FIELDS = (
+    "overall_score",
+    "relevance_score",
+    "novelty_score",
+    "actionability_score",
+    "summary",
+    "recommendation",
+)
 
 
 def _truncate_text(text: str, max_chars: int) -> str:
@@ -19,10 +29,12 @@ def _truncate_text(text: str, max_chars: int) -> str:
 def _build_article_payload(article: Article, max_input_chars: int) -> str:
     content = article.text_content or article.summary or ""
     excerpt = _truncate_text(content, max_input_chars)
+    content_type = content_type_for(article)
     return (
         f"标题: {article.title}\n"
         f"来源站点: {article.site_name or '未知'}\n"
         f"作者: {article.author or '未知'}\n"
+        f"内容类型: {content_type}\n"
         f"原文链接: {article.canonical_url}\n"
         f"发布时间: {article.published_date or '未知'}\n"
         f"Readwise摘要: {article.summary or '无'}\n"
@@ -34,6 +46,19 @@ def _coerce_keywords(raw_value: Any) -> list[str]:
     if isinstance(raw_value, list):
         return [str(item).strip() for item in raw_value if str(item).strip()]
     return []
+
+
+def _validate_scoring_payload(payload: dict[str, Any]) -> None:
+    missing = [
+        field
+        for field in _REQUIRED_SCORING_FIELDS
+        if field not in payload or payload[field] is None
+    ]
+    if missing:
+        raise ValueError(
+            "LLM response missing required scoring field(s): "
+            + ", ".join(missing)
+        )
 
 
 def _fallback_scored_article(article: Article) -> ScoredArticle:
@@ -69,7 +94,8 @@ def _score_single_article(
     raw_content = None
     try:
         raw_content = llm_client.chat(system_prompt=system_prompt, user_prompt=user_prompt)
-        payload = llm_client._extract_json(raw_content)
+        payload = LLMClient._extract_json(raw_content)
+        _validate_scoring_payload(payload)
         return ScoredArticle(
             article=article,
             overall_score=int(payload["overall_score"]),
@@ -101,6 +127,8 @@ def score_articles(
     scoring_focus: str,
     top_n: int,
     llm_concurrency: int = 1,
+    max_per_site: int = 2,
+    max_per_author: int = 2,
 ) -> list[ScoredArticle]:
     system_prompt = (
         "你是一名严谨的资讯编辑。"
@@ -109,6 +137,9 @@ def score_articles(
         "overall_score, relevance_score, novelty_score, actionability_score, summary, recommendation, keywords。"
         "其中四个分数字段必须是 0 到 100 的整数，summary 和 recommendation 使用简洁自然语言，"
         "keywords 是字符串数组，最多 5 个。"
+        "注意：如果输入中标注的 内容类型 是 newsletter 或 research 等长篇深度内容，"
+        "不要因为篇幅长或缺少明确动作项而扣 actionability 分；"
+        "改为评估其'阅读后认知更新的强度'。"
     )
 
     concurrency = max(1, llm_concurrency)
@@ -150,27 +181,68 @@ def score_articles(
         reverse=True,
     )
 
-    # 应用作者多样性限制：同一作者最多入选2篇
-    results = _apply_author_diversity(results, max_per_author=2)
+    results = _apply_diversity(
+        results,
+        max_per_site=max_per_site,
+        max_per_author=max_per_author,
+    )
 
     return results[:top_n]
+
+
+def _site_key_for(article: Article) -> str:
+    """Best-effort key for 'which publication published this'.
+
+    Delegates to :func:`publisher_key` so aggregator platforms (WeChat,
+    Substack, Medium) collapse correctly to the *real* publisher rather than
+    the platform brand.
+    """
+    return publisher_key(article)
+
+
+def _apply_diversity(
+    scored_articles: list[ScoredArticle],
+    *,
+    max_per_site: int = 2,
+    max_per_author: int = 2,
+) -> list[ScoredArticle]:
+    """Limit how many entries from the same site or author can survive.
+
+    Iterates the already score-sorted list once. An article is kept iff it
+    has not yet hit either cap. Pass a very large number (e.g. 999) to
+    effectively disable the corresponding dimension.
+    """
+    site_counts: dict[str, int] = {}
+    author_counts: dict[str, int] = {}
+    kept: list[ScoredArticle] = []
+
+    for item in scored_articles:
+        site_key = _site_key_for(item.article)
+        author_key = (item.article.author or "未知作者").strip().lower() or "未知作者"
+
+        if site_counts.get(site_key, 0) >= max_per_site:
+            continue
+        if author_counts.get(author_key, 0) >= max_per_author:
+            continue
+
+        kept.append(item)
+        site_counts[site_key] = site_counts.get(site_key, 0) + 1
+        author_counts[author_key] = author_counts.get(author_key, 0) + 1
+
+    return kept
 
 
 def _apply_author_diversity(
     scored_articles: list[ScoredArticle],
     max_per_author: int = 2,
 ) -> list[ScoredArticle]:
-    """限制同一作者的文章数量，确保来源多样性。"""
-    author_count: dict[str, int] = {}
-    diversified: list[ScoredArticle] = []
+    """Backwards-compatible alias for the legacy author-only diversity helper.
 
-    for article in scored_articles:
-        author = article.article.author or "未知作者"
-        current_count = author_count.get(author, 0)
-
-        if current_count < max_per_author:
-            diversified.append(article)
-            author_count[author] = current_count + 1
-        # 如果超过限制，跳过这篇文章
-
-    return diversified
+    Existing imports (e.g. older tests or dependant code) keep working by
+    delegating to :func:`_apply_diversity` with site capping disabled.
+    """
+    return _apply_diversity(
+        scored_articles,
+        max_per_site=10**6,
+        max_per_author=max_per_author,
+    )

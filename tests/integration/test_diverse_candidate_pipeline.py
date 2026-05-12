@@ -1,6 +1,7 @@
 """Integration tests for pre-score diversity selection in the digest pipeline."""
 from __future__ import annotations
 
+import json
 import threading
 import time
 from datetime import datetime, timedelta, timezone
@@ -17,7 +18,7 @@ class _FakeLLMClient:
         self.active_calls = 0
         self.max_active_calls = 0
 
-    def chat_json(self, *, system_prompt: str, user_prompt: str) -> dict[str, object]:
+    def chat(self, *, system_prompt: str, user_prompt: str) -> str:
         with self.lock:
             self.calls.append(user_prompt)
             self.active_calls += 1
@@ -28,15 +29,17 @@ class _FakeLLMClient:
         with self.lock:
             self.active_calls -= 1
 
-        return {
-            "overall_score": 80,
-            "relevance_score": 80,
-            "novelty_score": 80,
-            "actionability_score": 80,
-            "summary": "test summary",
-            "recommendation": "test recommendation",
-            "keywords": ["test"],
-        }
+        return json.dumps(
+            {
+                "overall_score": 80,
+                "relevance_score": 80,
+                "novelty_score": 80,
+                "actionability_score": 80,
+                "summary": "test summary",
+                "recommendation": "test recommendation",
+                "keywords": ["test"],
+            }
+        )
 
 
 class TestDiverseCandidatePipeline:
@@ -83,6 +86,10 @@ class TestDiverseCandidatePipeline:
             scoring_focus="信息价值优先",
             top_n=10,
             llm_concurrency=2,
+            # All 50 fixtures share one site_name, so disable the site cap to
+            # keep this test focused on its original purpose: verifying the
+            # pre-score diversity step shrinks the LLM workload.
+            max_per_site=999,
         )
 
         assert len(filtered) == 50
