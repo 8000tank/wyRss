@@ -171,15 +171,15 @@ def main() -> int:
     if settings.readwise_fetch_buckets:
         per_bucket: dict[str, int] = {}
         merged: dict[str, Article] = {}
-        for category, max_items in buckets:
+        for b in buckets:
             sub = readwise.list_documents(
                 updated_after=updated_after,
-                location=settings.readwise_location,
-                category=category,
+                location=b.location or settings.readwise_location,
+                category=b.category,
                 with_html_content=False,
-                max_items=max_items,
+                max_items=b.max_items,
             )
-            label = category or "(all)"
+            label = b.category or "(all)"
             per_bucket[label] = len(sub)
             for article in sub:
                 merged.setdefault(article.id, article)

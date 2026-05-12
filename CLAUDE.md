@@ -41,6 +41,15 @@ tests/
 5. **终选多样性** — `_apply_diversity`：site + author 双维度硬约束（`DIGEST_MAX_PER_SITE` / `DIGEST_MAX_PER_AUTHOR`）
 6. **渲染** — 输出 Markdown 到 `output/` 目录
 
+## ⚠️ .env 格式约束
+
+`.env` 文件通过 `source .env` 加载（cron 脚本），因此：
+
+- **所有变量必须带 `export` 前缀**，否则变量不会传递给子进程（如 `send_feishu_msg.py`）
+- **所有值必须用双引号包裹**，尤其是包含分号（`;`）、空格等 shell 特殊字符的值（如 `DIGEST_SCORING_FOCUS`）
+
+Python 端通过 `python-dotenv` 直接读取 `.env`，不依赖 `export` 和引号，但为保持一致性，统一要求 export + 引号。
+
 ## 关键配置（环境变量 / .env）
 
 | 变量 | 说明 | 默认值 |
