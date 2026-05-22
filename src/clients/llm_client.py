@@ -205,17 +205,29 @@ class LLMClient:
         return result if result else None
 
     @staticmethod
+    def _normalize_keys(payload: dict[str, Any]) -> dict[str, Any]:
+        """Normalize JSON keys to lowercase snake_case.
+
+        LLMs sometimes produce slight case variations in field names
+        (e.g. ``noveltY_score`` instead of ``novelty_score``).  This helper
+        lowercases every top-level key so downstream validation can match
+        against the expected canonical names.
+        """
+        return {k.lower(): v for k, v in payload.items()}
+
+    @staticmethod
     def _extract_json(content: str) -> dict[str, Any]:
         # Try 1: repair + json.loads
         candidate = LLMClient._repair_json_string(content)
         try:
-            return json.loads(candidate)
+            parsed = json.loads(candidate)
+            return LLMClient._normalize_keys(parsed)
         except json.JSONDecodeError:
             pass
 
         # Try 2: regex field extraction
         extracted = LLMClient._extract_json_fields_regex(content)
         if extracted:
-            return extracted
+            return LLMClient._normalize_keys(extracted)
 
         raise ValueError(f"Failed to parse LLM JSON response: {candidate[:300]}") from None
