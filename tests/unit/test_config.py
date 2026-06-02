@@ -210,6 +210,38 @@ class TestSettings:
         assert settings.llm_reasoning_split is True
         assert settings.llm_extra_body() == {"reasoning_split": True}
 
+    def test_minimax_m3_defaults_to_reasoning_split(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
+        monkeypatch.setattr("src.config.load_dotenv", lambda: None)
+        monkeypatch.setenv("READWISE_TOKEN", "t")
+        monkeypatch.setenv("RSS_LLM_API_KEY", "k")
+        monkeypatch.setenv("RSS_LLM_BASE_URL", "https://api.minimaxi.com/v1")
+        monkeypatch.setenv("RSS_LLM_MODEL", "MiniMax-M3")
+        monkeypatch.setenv("DIGEST_OUTPUT_DIR", str(tmp_path / "out"))
+        monkeypatch.delenv("LLM_REASONING_SPLIT", raising=False)
+
+        settings = Settings.from_env()
+
+        assert settings.llm_reasoning_split is True
+        assert settings.llm_extra_body() == {"reasoning_split": True}
+
+    def test_minimax_global_api_defaults_to_reasoning_split(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
+        monkeypatch.setattr("src.config.load_dotenv", lambda: None)
+        monkeypatch.setenv("READWISE_TOKEN", "t")
+        monkeypatch.setenv("RSS_LLM_API_KEY", "k")
+        monkeypatch.setenv("RSS_LLM_BASE_URL", "https://api.minimax.io/v1")
+        monkeypatch.setenv("RSS_LLM_MODEL", "MiniMax-M3")
+        monkeypatch.setenv("DIGEST_OUTPUT_DIR", str(tmp_path / "out"))
+        monkeypatch.delenv("LLM_REASONING_SPLIT", raising=False)
+
+        settings = Settings.from_env()
+
+        assert settings.llm_reasoning_split is True
+        assert settings.llm_extra_body() == {"reasoning_split": True}
+
     def test_reasoning_split_can_be_explicitly_disabled(
         self, tmp_path: Path, monkeypatch
     ) -> None:

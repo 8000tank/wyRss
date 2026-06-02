@@ -153,7 +153,7 @@ READWISE_TOKEN=your_readwise_token
 # LLM（MiniMax 示例）
 RSS_LLM_API_KEY=your_minimax_api_key
 RSS_LLM_BASE_URL=https://api.minimaxi.com/v1
-RSS_LLM_MODEL=MiniMax-M2.5
+RSS_LLM_MODEL=MiniMax-M3
 ```
 
 若未设置上述 `RSS_LLM_*`，程序会**回退**读取旧名：`LLM_API_KEY`、`LLM_BASE_URL`、`LLM_MODEL`，便于迁移旧 `.env`。

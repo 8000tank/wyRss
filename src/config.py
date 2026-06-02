@@ -118,7 +118,13 @@ _DEFAULT_TOPIC_BUCKETS: list[str] = ["ai", "security", "infra", "research", "bus
 
 
 def _default_reasoning_split(base_url: str, model: str) -> bool:
-    return "minimaxi.com" in base_url.lower() and model.lower().startswith("minimax-m2")
+    base_url_lower = base_url.lower()
+    model_lower = model.lower()
+    is_minimax_official_api = (
+        "minimaxi.com" in base_url_lower
+        or "minimax.io" in base_url_lower
+    )
+    return is_minimax_official_api and model_lower.startswith(("minimax-m2", "minimax-m3"))
 
 
 @dataclass(slots=True)

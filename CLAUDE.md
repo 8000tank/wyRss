@@ -6,7 +6,7 @@
 
 - Python 3.12+，使用 **uv** 管理依赖（`.python-version` 声明版本）
 - `python-dotenv` 加载 `.env`；不存在时从 shell 环境变量读取
-- OpenAI 兼容接口（智谱 GLM、MiniMax M2 等）
+- OpenAI 兼容接口（智谱 GLM、MiniMax M2/M3 等）
 
 ## 项目结构
 
@@ -61,7 +61,7 @@ Python 端通过 `python-dotenv` 直接读取 `.env`，不依赖 `export` 和引
 | `DIGEST_MAX_PUBLISHED_AGE_DAYS` | 排除超过 N 天的有日期文章 | 7 |
 | `DIGEST_TIMEZONE` | 输出时间的时区 | Asia/Shanghai |
 | `LLM_MAX_TOKENS` | LLM 最大输出 token | 4096 |
-| `LLM_REASONING_SPLIT` | MiniMax M2 系列推理分割开关 | 自动检测 |
+| `LLM_REASONING_SPLIT` | MiniMax M2/M3 系列推理分割开关 | 自动检测 |
 
 ## 开发命令
 
