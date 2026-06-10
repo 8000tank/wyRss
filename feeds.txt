@@ -1,0 +1,38 @@
+# WYRSS Feed Sources — 直接 RSS 订阅源列表
+#
+# 格式：每行一个 RSS URL，可选 "|" 分隔的名称和分类
+# name|url|category|feed_type
+# - name: 显示名称
+# - url: RSS/Atom feed URL
+# - category: ai / security / infra / research / business / other
+# - feed_type: rss / wechat / podcast / youtube (自动检测，通常可省略)
+#
+# 也可以通过 FEED_OPML_PATH 指向一个 OPML 文件批量导入
+
+# ============================================================
+# AI 媒体 — 中文公众号 (wechat2rss.xlab.app)
+# ============================================================
+机器之心|https://wechat2rss.xlab.app/feed/51e92aad2728acdd1fda7314be32b16639353001.xml|ai|wechat
+量子位|https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml|ai|wechat
+新智元|https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml|ai|wechat
+傅盛|https://wechat2rss.xlab.app/feed/71257003d43d39b91ff9d38b6f3330c883dc8e0c.xml|ai|wechat
+
+# ============================================================
+# 安全
+# ============================================================
+奇安信威胁情报中心|https://wechat2rss.xlab.app/feed/b93962f981247c0091dad08df5b7a6864ab888e9.xml|security|wechat
+互联网安全内参|https://wechat2rss.xlab.app/feed/d5eb8577bf93aacdd7481ad0c3364939096b99a1.xml|security|wechat
+腾讯玄武实验室|https://wechat2rss.xlab.app/feed/923c0e2f33b6d39c8a826a90f185725f0edb10e8.xml|security|wechat
+
+# ============================================================
+# 基础设施 / 云
+# ============================================================
+阿里云开发者|https://wechat2rss.xlab.app/feed/c74ed6db00cfbf16f2a048a165b4453f982681f0.xml|infra|wechat
+
+# ============================================================
+# 英文博客
+# ============================================================
+The Verge AI|https://www.theverge.com/rss/ai-artificial-intelligence/index.xml|ai|rss
+MIT Technology Review|https://www.technologyreview.com/feed|research|rss
+BAIR Blog|https://bair.berkeley.edu/blog/feed.xml|research|rss
+Massively Parallel Procrastination|https://blog.fsck.com/feed/feed.xml|other|rss

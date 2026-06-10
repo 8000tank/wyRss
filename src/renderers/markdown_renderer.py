@@ -45,7 +45,7 @@ def render_markdown(
         return _render_empty_digest(generated_at, hours, fetched_count, candidate_count)
 
     lines: list[str] = [
-        f"# 📰 Readwise 日报 - {generated_at.strftime('%Y年%m月%d日')}",
+        f"# 📰 海心 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}",
         "",
         "## 📊 概览",
         "",
@@ -164,32 +164,27 @@ def _render_empty_digest(
     candidate_count: int,
 ) -> str:
     """渲染空日报（无文章时）。"""
-    return f"""# 📰 Readwise 日报 - {generated_at.strftime('%Y年%m月%d日')}
-
-## 📊 概览
-
-| 指标 | 数值 |
-|------|------|
-| 生成时间 | {generated_at.strftime('%H:%M')} |
-| 统计窗口 | 最近 {hours} 小时 |
-| 拉取文章 | {fetched_count} 篇 |
-| 候选池 | {candidate_count} 篇 |
-| 最终入选 | 0 篇 |
-
-## 📝 状态
-
-今天没有找到符合条件的文章。
-
-**可能原因：**
-- Readwise 中最近 {hours} 小时没有新文章
-- 文章未通过筛选条件（location/category）
-- 所有文章都被过滤或去重
-
-**建议：**
-- 检查 Readwise 中是否有新内容
-- 考虑扩大时间窗口（`DIGEST_HOURS`）
-- 调整筛选条件（`READWISE_LOCATION` / `READWISE_CATEGORY`）
-"""
+    return (
+        f"# 📰 海心 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}\n\n"
+        f"## 📊 概览\n\n"
+        f"| 指标 | 数值 |\n"
+        f"|------|------|\n"
+        f"| 生成时间 | {generated_at.strftime('%H:%M')} |\n"
+        f"| 统计窗口 | 最近 {hours} 小时 |\n"
+        f"| 拉取文章 | {fetched_count} 篇 |\n"
+        f"| 候选池 | {candidate_count} 篇 |\n"
+        f"| 最终入选 | 0 篇 |\n\n"
+        f"## 📝 状态\n\n"
+        f"今天没有找到符合条件的文章。\n\n"
+        f"**可能原因：**\n"
+        f"- RSS 源最近 {hours} 小时没有新文章\n"
+        f"- 文章未通过筛选条件\n"
+        f"- 所有文章都被过滤或去重\n\n"
+        f"**建议：**\n"
+        f"- 检查 feeds.txt 中的 RSS 源是否有新内容\n"
+        f"- 考虑扩大时间窗口（`DIGEST_HOURS`）\n"
+        f"- 调整筛选条件（`DIGEST_TOPIC_BUCKETS`）\n"
+    )
 
 
 def write_markdown(output_dir: Path, generated_at: datetime, content: str) -> Path:
