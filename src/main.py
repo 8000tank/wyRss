@@ -8,8 +8,8 @@ from time import perf_counter
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from src.clients.llm_client import LLMClient
-from src.clients.readwise_client import ReadwiseClient
-from src.config import FetchBucket, Settings
+from src.clients.rss_client import fetch_all_feeds, FeedSource
+from src.config import Settings
 from src.models import Article
 from src.pipeline.filtering import filter_articles, select_diverse_candidates
 from src.pipeline.ranking import score_articles
@@ -18,13 +18,23 @@ from src.renderers.markdown_renderer import render_markdown, write_markdown
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Generate a Readwise daily digest.")
+    parser = argparse.ArgumentParser(description="Generate AI daily digest from RSS feeds.")
     parser.add_argument("--hours", type=int, help="Override the digest time window in hours.")
     parser.add_argument("--top-n", type=int, help="Override the number of selected articles.")
     parser.add_argument(
         "--candidate-limit",
         type=int,
         help="Override the maximum number of candidate articles sent to the ranking step.",
+    )
+    parser.add_argument(
+        "--no-full-text",
+        action="store_true",
+        help="Skip full-text extraction (use feed summaries only).",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Fetch feeds but skip LLM scoring; print candidate summary.",
     )
     parser.add_argument(
         "--log-level",
@@ -44,16 +54,6 @@ def _format_topic_distribution(articles: list[Article], allowed_topics: list[str
 def _format_publisher_distribution(articles: list[Article]) -> str:
     counter = Counter(publisher_key(a) for a in articles)
     return ", ".join(f"{publisher}={count}" for publisher, count in counter.most_common()) or "(empty)"
-
-
-def _format_fetch_buckets(buckets: list[FetchBucket], default_location: str | None) -> str:
-    parts: list[str] = []
-    for bucket in buckets:
-        category = bucket.category or "all"
-        location = bucket.location if bucket.location is not None else default_location
-        location_suffix = f"@{location}" if location else ""
-        parts.append(f"{category}{location_suffix}:{bucket.max_items}")
-    return ", ".join(parts)
 
 
 def _digest_timezone(name: str) -> ZoneInfo:
@@ -78,14 +78,17 @@ def main() -> int:
     top_n = args.top_n or settings.digest_top_n
     candidate_limit = args.candidate_limit or settings.digest_candidate_limit
     pre_score_limit = min(settings.digest_pre_score_limit, candidate_limit)
+    fetch_full_text = settings.feed_fetch_full_text and not args.no_full_text
     updated_after = datetime.now(timezone.utc) - timedelta(hours=hours)
     pipeline_started_at = perf_counter()
 
-    readwise_client = ReadwiseClient(
-        token=settings.readwise_token,
-        base_url=settings.readwise_base_url,
-        timeout_seconds=settings.request_timeout_seconds,
-    )
+    # Load feed sources
+    sources = settings.load_feed_sources()
+    if not sources:
+        logging.error("No feed sources configured. Check FEED_LIST_PATH or FEED_OPML_PATH.")
+        return 1
+    logging.info("Loaded %d feed source(s).", len(sources))
+
     llm_client = LLMClient(
         api_key=settings.llm_api_key,
         base_url=settings.llm_base_url,
@@ -96,45 +99,29 @@ def main() -> int:
         extra_body=settings.llm_extra_body(),
     )
 
-    logging.info("Verifying Readwise token.")
-    readwise_client.verify_token()
-
-    buckets = settings.effective_buckets()
-    logging.info(
-        "Fetching documents from Readwise Reader (buckets=%s).",
-        _format_fetch_buckets(buckets, settings.readwise_location),
-    )
+    # Fetch all feeds
+    logging.info("Fetching RSS feeds (full_text=%s, window=%dh)...", fetch_full_text, hours)
     fetch_started_at = perf_counter()
-    if settings.readwise_fetch_buckets:
-        articles = readwise_client.list_documents_by_buckets(
-            buckets,
-            updated_after=updated_after,
-            location=settings.readwise_location,
-            with_html_content=settings.readwise_with_html_content,
-        )
-    else:
-        # Legacy single-bucket path keeps existing CLI behaviour for users
-        # who never set READWISE_FETCH_BUCKETS.
-        articles = readwise_client.list_documents(
-            updated_after=updated_after,
-            location=settings.readwise_location,
-            category=settings.readwise_category,
-            with_html_content=settings.readwise_with_html_content,
-            max_items=candidate_limit,
-        )
+    articles = fetch_all_feeds(
+        sources,
+        updated_after=updated_after,
+        timeout_seconds=settings.feed_timeout_seconds,
+        fetch_full_text=fetch_full_text,
+        per_feed_delay=settings.feed_per_feed_delay,
+    )
     fetch_elapsed = perf_counter() - fetch_started_at
     logging.info(
-        "Fetched %d article(s) in %.2fs.",
+        "Fetched %d article(s) from %d feed(s) in %.2fs.",
         len(articles),
+        len(sources),
         fetch_elapsed,
     )
-    if articles:
-        per_category = Counter((a.category or "?").lower() for a in articles)
-        logging.info(
-            "  Fetch per-category: %s",
-            ", ".join(f"{cat}={count}" for cat, count in sorted(per_category.items())),
-        )
 
+    if args.dry_run:
+        _print_dry_run_summary(articles, hours, sources, settings)
+        return 0
+
+    # Filter and deduplicate
     logging.info("Filtering and deduplicating articles.")
     filter_started_at = perf_counter()
     candidates = filter_articles(
@@ -151,6 +138,7 @@ def main() -> int:
         filter_elapsed,
     )
 
+    # Pre-score diversity selection
     logging.info("Selecting diverse candidates before LLM scoring.")
     pre_score_started_at = perf_counter()
     pre_scored_candidates = select_diverse_candidates(
@@ -171,6 +159,7 @@ def main() -> int:
             _format_topic_distribution(pre_scored_candidates, settings.digest_topic_buckets),
         )
 
+    # LLM scoring
     logging.info("Scoring candidate articles with the configured LLM.")
     scoring_started_at = perf_counter()
     scored_articles = score_articles(
@@ -203,6 +192,7 @@ def main() -> int:
             _format_publisher_distribution(final_articles),
         )
 
+    # Render
     generated_at = datetime.now(_digest_timezone(settings.digest_timezone))
     render_started_at = perf_counter()
     markdown = render_markdown(
@@ -220,6 +210,35 @@ def main() -> int:
     logging.info("Digest generated successfully in %.2fs: %s", total_elapsed, output_path)
     print(output_path)
     return 0
+
+
+def _print_dry_run_summary(
+    articles: list[Article],
+    hours: int,
+    sources: list[FeedSource],
+    settings: Settings,
+) -> None:
+    """Print a summary of fetched articles without running LLM scoring."""
+    print(f"\n{'='*60}")
+    print(f"DRY RUN — Fetched {len(articles)} article(s) from {len(sources)} feed(s)")
+    print(f"Time window: {hours}h")
+    print(f"{'='*60}")
+
+    if not articles:
+        print("(no articles found)")
+        return
+
+    for i, article in enumerate(articles, 1):
+        topic = topic_for(article, settings.digest_topic_buckets)
+        text_len = len(article.text_content or "")
+        print(
+            f"  {i:3d}. [{topic:8s}] {article.title[:60]}"
+            + (f" ({text_len} chars)" if text_len else "")
+        )
+
+    print()
+    print(f"Topic distribution: {_format_topic_distribution(articles, settings.digest_topic_buckets)}")
+    print(f"Publisher distribution: {_format_publisher_distribution(articles)}")
 
 
 if __name__ == "__main__":

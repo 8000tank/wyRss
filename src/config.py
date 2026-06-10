@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -11,10 +11,12 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True, frozen=True)
-class FetchBucket:
-    category: str | None
-    max_items: int
-    location: str | None = None
+class FeedSource:
+    """A single RSS/Atom feed to fetch."""
+    name: str
+    url: str
+    category: str = "other"
+    feed_type: str = "rss"
 
 
 def _get_bool(name: str, default: bool) -> bool:
@@ -28,14 +30,14 @@ def _get_int(name: str, default: int) -> int:
     value = os.getenv(name)
     if value is None or not value.strip():
         return default
-    return int(value)
+    return int(value.strip())
 
 
 def _get_float(name: str, default: float) -> float:
     value = os.getenv(name)
     if value is None or not value.strip():
         return default
-    return float(value)
+    return float(value.strip())
 
 
 def _env_str_non_empty(*names: str) -> str:
@@ -45,73 +47,6 @@ def _env_str_non_empty(*names: str) -> str:
         if value is not None and value.strip():
             return value.strip()
     return ""
-
-
-def _parse_buckets(raw: str | None) -> list[FetchBucket]:
-    """Parse a "category[@location]:max_items,..." spec.
-
-    Returns an empty list on empty/None input or when nothing parses cleanly,
-    so callers can fall back to legacy single-bucket behaviour.
-
-    Rules:
-    - Each comma-separated entry must be ``category:integer`` or
-      ``category@location:integer``; whitespace is stripped.
-    - ``category`` may be empty (-> None, meaning "all categories").
-    - ``location`` may be omitted (-> caller's global READWISE_LOCATION).
-    - Non-positive max_items are skipped.
-    - Duplicate category/location pairs: later entry wins.
-    - Malformed entries are skipped with a logged warning.
-    """
-    if raw is None:
-        return []
-    text = raw.strip()
-    if not text:
-        return []
-
-    parsed: dict[tuple[str | None, str | None], int] = {}
-    order: list[tuple[str | None, str | None]] = []
-    for chunk in text.split(","):
-        token = chunk.strip()
-        if not token:
-            continue
-        if ":" not in token:
-            logger.warning("Ignoring fetch bucket entry without ':' -> %r", token)
-            continue
-        bucket_part, _, max_part = token.partition(":")
-        if "@" in bucket_part:
-            category_part, _, location_part = bucket_part.partition("@")
-            location = location_part.strip() or None
-        else:
-            category_part = bucket_part
-            location = None
-        category = category_part.strip() or None
-        try:
-            max_items = int(max_part.strip())
-        except ValueError:
-            logger.warning("Ignoring fetch bucket entry with non-int max -> %r", token)
-            continue
-        if max_items <= 0:
-            logger.warning("Ignoring fetch bucket entry with non-positive max -> %r", token)
-            continue
-        key = (category, location)
-        if key not in parsed:
-            order.append(key)
-        parsed[key] = max_items
-
-    return [
-        FetchBucket(category=category, location=location, max_items=parsed[(category, location)])
-        for category, location in order
-    ]
-
-
-def _parse_topic_list(raw: str | None, default: list[str]) -> list[str]:
-    if raw is None:
-        return list(default)
-    text = raw.strip()
-    if not text:
-        return list(default)
-    items = [chunk.strip().lower() for chunk in text.split(",") if chunk.strip()]
-    return items or list(default)
 
 
 _DEFAULT_TOPIC_BUCKETS: list[str] = ["ai", "security", "infra", "research", "business", "other"]
@@ -127,15 +62,54 @@ def _default_reasoning_split(base_url: str, model: str) -> bool:
     return is_minimax_official_api and model_lower.startswith(("minimax-m2", "minimax-m3"))
 
 
+def _parse_feed_list(path: Path) -> list[FeedSource]:
+    """Parse a simple feeds.txt file.
+
+    Format: ``name|url|category|feed_type`` (one per line).
+    Fields after ``url`` are optional and default to ``other`` / ``rss``.
+    Lines starting with ``#`` and blank lines are ignored.
+    """
+    if not path.is_file():
+        logger.warning("Feed list file not found: %s", path)
+        return []
+
+    sources: list[FeedSource] = []
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = [p.strip() for p in line.split("|")]
+        if len(parts) < 2:
+            continue
+        name = parts[0]
+        url = parts[1]
+        category = parts[2] if len(parts) > 2 else "other"
+        feed_type = parts[3] if len(parts) > 3 else "rss"
+        if name and url:
+            sources.append(FeedSource(name=name, url=url, category=category, feed_type=feed_type))
+    return sources
+
+
+def _parse_topic_list(raw: str | None, default: list[str]) -> list[str]:
+    if raw is None:
+        return list(default)
+    text = raw.strip()
+    if not text:
+        return list(default)
+    items = [chunk.strip().lower() for chunk in text.split(",") if chunk.strip()]
+    return items or list(default)
+
+
 @dataclass(slots=True)
 class Settings:
-    readwise_token: str
-    readwise_base_url: str
-    readwise_location: str | None
-    readwise_category: str | None
-    readwise_fetch_buckets: list[FetchBucket]
-    readwise_with_html_content: bool
-    request_timeout_seconds: int
+    # --- Feed sources ---
+    feed_list_path: Path
+    feed_opml_path: Path | None
+    feed_fetch_full_text: bool
+    feed_timeout_seconds: int
+    feed_per_feed_delay: float
+
+    # --- Digest ---
     digest_hours: int
     digest_candidate_limit: int
     digest_pre_score_limit: int
@@ -148,6 +122,8 @@ class Settings:
     digest_output_dir: Path
     digest_language: str
     digest_scoring_focus: str
+
+    # --- LLM ---
     llm_api_key: str
     llm_base_url: str
     llm_model: str
@@ -158,11 +134,13 @@ class Settings:
     llm_max_input_chars: int
     llm_reasoning_split: bool
 
+    # --- HTTP ---
+    request_timeout_seconds: int
+
     @classmethod
     def from_env(cls) -> "Settings":
         load_dotenv()
 
-        readwise_token = os.getenv("READWISE_TOKEN", "").strip()
         llm_api_key = _env_str_non_empty("RSS_LLM_API_KEY", "LLM_API_KEY")
         llm_model = _env_str_non_empty("RSS_LLM_MODEL", "LLM_MODEL")
         llm_base_url = (
@@ -173,7 +151,6 @@ class Settings:
         missing = [
             name
             for name, value in {
-                "READWISE_TOKEN": readwise_token,
                 "RSS_LLM_API_KEY": llm_api_key,
                 "RSS_LLM_MODEL": llm_model,
             }.items()
@@ -183,21 +160,23 @@ class Settings:
             joined = ", ".join(missing)
             raise ValueError(f"Missing required environment variables: {joined}")
 
-        readwise_category_raw = os.getenv("READWISE_CATEGORY", "rss")
-        readwise_category = readwise_category_raw.strip() or None
+        project_dir = Path(__file__).resolve().parent.parent
 
         return cls(
-            readwise_token=readwise_token,
-            readwise_base_url=os.getenv("READWISE_BASE_URL", "https://readwise.io/api/v3").rstrip("/"),
-            readwise_location=os.getenv("READWISE_LOCATION", "feed").strip() or None,
-            readwise_category=readwise_category,
-            readwise_fetch_buckets=_parse_buckets(os.getenv("READWISE_FETCH_BUCKETS")),
-            readwise_with_html_content=_get_bool("READWISE_WITH_HTML_CONTENT", True),
-            request_timeout_seconds=_get_int("REQUEST_TIMEOUT_SECONDS", 30),
+            # Feed sources
+            feed_list_path=Path(os.getenv("FEED_LIST_PATH", str(project_dir / "feeds.txt"))),
+            feed_opml_path=(
+                Path(os.getenv("FEED_OPML_PATH")) if os.getenv("FEED_OPML_PATH") else None
+            ),
+            feed_fetch_full_text=_get_bool("FEED_FETCH_FULL_TEXT", True),
+            feed_timeout_seconds=_get_int("FEED_TIMEOUT_SECONDS", 30),
+            feed_per_feed_delay=_get_float("FEED_PER_FEED_DELAY", 0.5),
+
+            # Digest
             digest_hours=_get_int("DIGEST_HOURS", 24),
-            digest_candidate_limit=_get_int("DIGEST_CANDIDATE_LIMIT", 30),
-            digest_pre_score_limit=_get_int("DIGEST_PRE_SCORE_LIMIT", 20),
-            digest_top_n=_get_int("DIGEST_TOP_N", 10),
+            digest_candidate_limit=_get_int("DIGEST_CANDIDATE_LIMIT", 120),
+            digest_pre_score_limit=_get_int("DIGEST_PRE_SCORE_LIMIT", 30),
+            digest_top_n=_get_int("DIGEST_TOP_N", 12),
             digest_max_per_site=_get_int("DIGEST_MAX_PER_SITE", 2),
             digest_max_per_author=_get_int("DIGEST_MAX_PER_AUTHOR", 2),
             digest_topic_buckets=_parse_topic_list(
@@ -210,27 +189,60 @@ class Settings:
             digest_language=os.getenv("DIGEST_LANGUAGE", "中文").strip() or "中文",
             digest_scoring_focus=os.getenv(
                 "DIGEST_SCORING_FOCUS",
-                "信息价值优先，其次考虑新颖度、可执行性和与技术/AI资讯的相关性。",
+                "信息价值优先；兼顾 AI 研究/产品、基础设施与云、网络安全、工程实践与行业战略；优先选择有独立观察、数据或可操作结论的内容，避免新闻搬运与公关稿。",
             ).strip(),
+
+            # LLM
             llm_api_key=llm_api_key,
             llm_base_url=llm_base_url,
             llm_model=llm_model,
-            llm_timeout_seconds=_get_int("LLM_TIMEOUT_SECONDS", 60),
-            llm_concurrency=_get_int("LLM_CONCURRENCY", 1),
+            llm_timeout_seconds=_get_int("LLM_TIMEOUT_SECONDS", 120),
+            llm_concurrency=_get_int("LLM_CONCURRENCY", 2),
             llm_temperature=_get_float("LLM_TEMPERATURE", 0.2),
-            llm_max_tokens=_get_int("LLM_MAX_TOKENS", 4096),
+            llm_max_tokens=_get_int("LLM_MAX_TOKENS", 8192),
             llm_max_input_chars=_get_int("LLM_MAX_INPUT_CHARS", 6000),
             llm_reasoning_split=_get_bool(
                 "LLM_REASONING_SPLIT",
                 _default_reasoning_split(llm_base_url, llm_model),
             ),
+
+            # HTTP
+            request_timeout_seconds=_get_int("REQUEST_TIMEOUT_SECONDS", 30),
         )
 
-    def effective_buckets(self) -> list[FetchBucket]:
-        """Buckets used for fetching. Falls back to legacy single bucket when not set."""
-        if self.readwise_fetch_buckets:
-            return list(self.readwise_fetch_buckets)
-        return [FetchBucket(category=self.readwise_category, max_items=self.digest_candidate_limit)]
+    def load_feed_sources(self) -> list[FeedSource]:
+        """Load feed sources from feeds.txt and/or OPML file."""
+        sources: list[FeedSource] = []
+
+        # Load from feeds.txt
+        txt_sources = _parse_feed_list(self.feed_list_path)
+        sources.extend(txt_sources)
+        if txt_sources:
+            logger.info("Loaded %d feed(s) from %s", len(txt_sources), self.feed_list_path)
+
+        # Optionally merge from OPML
+        if self.feed_opml_path and self.feed_opml_path.is_file():
+            from src.clients.rss_client import parse_opml
+
+            opml_text = self.feed_opml_path.read_text(encoding="utf-8")
+            opml_sources = parse_opml(opml_text)
+            # Deduplicate by URL
+            existing_urls = {s.url.lower() for s in sources}
+            new_sources = [
+                FeedSource(
+                    name=s.name,
+                    url=s.url,
+                    category=s.category,
+                    feed_type=s.feed_type,
+                )
+                for s in opml_sources
+                if s.url.lower() not in existing_urls
+            ]
+            sources.extend(new_sources)
+            if new_sources:
+                logger.info("Merged %d feed(s) from OPML %s", len(new_sources), self.feed_opml_path)
+
+        return sources
 
     def llm_extra_body(self) -> dict[str, object]:
         """Provider-specific OpenAI-compatible request options."""

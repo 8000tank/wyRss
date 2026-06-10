@@ -37,7 +37,7 @@ def _build_article_payload(article: Article, max_input_chars: int) -> str:
         f"内容类型: {content_type}\n"
         f"原文链接: {article.canonical_url}\n"
         f"发布时间: {article.published_date or '未知'}\n"
-        f"Readwise摘要: {article.summary or '无'}\n"
+        f"内容摘要: {article.summary or '无'}\n"
         f"正文摘录:\n{excerpt or '无可用正文'}"
     )
 
@@ -68,7 +68,7 @@ def _fallback_scored_article(article: Article) -> ScoredArticle:
         relevance_score=50,
         novelty_score=50,
         actionability_score=50,
-        summary=article.summary or "LLM 评分失败，暂时使用 Readwise 自带摘要。",
+        summary=article.summary or "LLM 评分失败，使用内容摘要作为替代。",
         recommendation="建议人工复核这篇文章是否应当入选日报。",
         keywords=article.tags,
         raw_response=None,
