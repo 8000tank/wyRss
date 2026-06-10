@@ -45,7 +45,7 @@ def render_markdown(
         return _render_empty_digest(generated_at, hours, fetched_count, candidate_count)
 
     lines: list[str] = [
-        f"# 📰 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}",
+        f"# 📰 海心 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}",
         "",
         "## 📊 概览",
         "",
@@ -165,7 +165,7 @@ def _render_empty_digest(
 ) -> str:
     """渲染空日报（无文章时）。"""
     return (
-        f"# 📰 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}\n\n"
+        f"# 📰 海心 AI 日报 - {generated_at.strftime('%Y年%m月%d日')}\n\n"
         f"## 📊 概览\n\n"
         f"| 指标 | 数值 |\n"
         f"|------|------|\n"
