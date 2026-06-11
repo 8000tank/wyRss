@@ -36,3 +36,58 @@ The Verge AI|https://www.theverge.com/rss/ai-artificial-intelligence/index.xml|a
 MIT Technology Review|https://www.technologyreview.com/feed|research|rss
 BAIR Blog|https://bair.berkeley.edu/blog/feed.xml|research|rss
 Massively Parallel Procrastination|https://blog.fsck.com/feed/feed.xml|other|rss
+
+# ============================================================
+# AI 公司 / 产品 (wechat2rss.bestblogs.dev)
+# ============================================================
+DeepSeek|https://wechat2rss.bestblogs.dev/feed/1709da4f538d4ce4fb6d7a8ba1a5a1c297919601.xml|ai|wechat
+智谱|https://wechat2rss.bestblogs.dev/feed/433d2134dca54d80804daf32e8be546155be3300.xml|ai|wechat
+通义实验室|https://wechat2rss.bestblogs.dev/feed/4ebee6222ae08705b8aabc9116f0defbcb6b17c6.xml|ai|wechat
+百度文心|https://wechat2rss.bestblogs.dev/feed/d0767d885e6ba213344fb0c0408c51331e23a994.xml|ai|wechat
+腾讯混元|https://wechat2rss.bestblogs.dev/feed/306ce19a1ca590c9c2df781789e828d1acfa1356.xml|ai|wechat
+阶跃星辰|https://wechat2rss.bestblogs.dev/feed/3e2714d06aa36142e8ed6b3f4e5cf9090a069dd2.xml|ai|wechat
+字节跳动Seed|https://wechat2rss.bestblogs.dev/feed/6efd40bb335d2037f365d284cb5e00f0843e737e.xml|ai|wechat
+MiniMax 稀宇科技|https://wechat2rss.bestblogs.dev/feed/00306b171f754d463b28cf83f3ba086ad009b430.xml|ai|wechat
+月之暗面 Kimi|https://wechat2rss.bestblogs.dev/feed/c5c43d4bc17bae656763859ed0903bb6314ec6fe.xml|ai|wechat
+Dify|https://wechat2rss.bestblogs.dev/feed/e46c03a4cb65509e22ab9a8507888a2096319d65.xml|ai|wechat
+Jina AI|https://wechat2rss.bestblogs.dev/feed/ff2c5468828ebe7236afd6c1d128e219774487c2.xml|ai|wechat
+Datawhale|https://wechat2rss.bestblogs.dev/feed/ea0dd8bddfe4fbfb32eaa81a1e1b628d45e97a80.xml|ai|wechat
+山行AI|https://wechat2rss.bestblogs.dev/feed/98bc16b6f53902a2ab511b4faa3499e0a1c78eb1.xml|ai|wechat
+魔搭ModelScope社区|https://wechat2rss.bestblogs.dev/feed/d993a885260f96057b9a4c96212cb2c95bb5054b.xml|ai|wechat
+
+# ============================================================
+# 大厂技术团队 (wechat2rss.bestblogs.dev)
+# ============================================================
+字节跳动技术团队|https://wechat2rss.bestblogs.dev/feed/d3a9e4d6f125cc98d1691dbc30cd97fec7ae2d03.xml|infra|wechat
+阿里技术|https://wechat2rss.bestblogs.dev/feed/6535a444e9651fecae3383363be7589acdebe2b6.xml|infra|wechat
+腾讯技术工程|https://wechat2rss.bestblogs.dev/feed/1e0ac39f8952b2e7f0807313cf2633d25078a171.xml|infra|wechat
+腾讯云开发者|https://wechat2rss.bestblogs.dev/feed/6cec2c211479a5502896375860009782cf10c2ba.xml|infra|wechat
+小米技术|https://wechat2rss.bestblogs.dev/feed/8bbc1ba1d363e70cd42d1ce89fb9070cb075c3b3.xml|infra|wechat
+快手技术|https://wechat2rss.bestblogs.dev/feed/c4cc10d2e32a5fa12927581ae581a336f399fe75.xml|infra|wechat
+哔哩哔哩技术|https://wechat2rss.bestblogs.dev/feed/3a12ae4fde5bb74aab2fddc9f710a3c057eab82f.xml|infra|wechat
+钉钉|https://wechat2rss.bestblogs.dev/feed/3291b88d0dc81c3c094752f756256c715d038a7b.xml|infra|wechat
+飞书|https://wechat2rss.bestblogs.dev/feed/acae39126a4fe47d9c99714708d606f5c3ab0169.xml|infra|wechat
+蚂蚁技术AntTech|https://wechat2rss.bestblogs.dev/feed/15738401f49466ad01b324b69f779f9bef0cb3e7.xml|infra|wechat
+
+# ============================================================
+# AI 媒体 / 评论 (wechat2rss.bestblogs.dev)
+# ============================================================
+AI前线|https://wechat2rss.bestblogs.dev/feed/25185b01482da0f485418ecb92e208b4416712fb.xml|ai|wechat
+智东西|https://wechat2rss.bestblogs.dev/feed/cfd52b4245ca6119b2fda4ef934832c689028927.xml|ai|wechat
+AI科技评论|https://wechat2rss.bestblogs.dev/feed/789e5fefb9cc2646ba7b680cb7a88378a34eb7a4.xml|ai|wechat
+DeepTech深科技|https://wechat2rss.bestblogs.dev/feed/7229d3e3e0c59e13fb0b8b3626881488bab76156.xml|research|wechat
+PaperWeekly|https://wechat2rss.bestblogs.dev/feed/0120e999fc95e098c74bd5482a2a4c8407c42c38.xml|research|wechat
+通往AGI之路|https://wechat2rss.bestblogs.dev/feed/ddc8d4d93c8ab3faa82675c2797aed5069cbc6f0.xml|ai|wechat
+智能涌现|https://wechat2rss.bestblogs.dev/feed/049f4d78f94b31ab6afda95b1a65f0e562c8d5c2.xml|ai|wechat
+青稞AI|https://wechat2rss.bestblogs.dev/feed/b22be100fcd702f02cd6574b5aecb8a08d48438f.xml|ai|wechat
+PaperAgent|https://wechat2rss.bestblogs.dev/feed/54001ca616dbc4b55d2b25d79d68a70191a0ddf4.xml|ai|wechat
+AINLP|https://wechat2rss.bestblogs.dev/feed/875df1d1a991bf9250ba9813e3148f58ef2240d4.xml|ai|wechat
+
+# ============================================================
+# 开发者 / 技术 (wechat2rss.bestblogs.dev)
+# ============================================================
+InfoQ|https://wechat2rss.bestblogs.dev/feed/13da94d7eb314b49fa251cb7e8399cae29d772db.xml|infra|wechat
+少数派|https://wechat2rss.bestblogs.dev/feed/f0e37a7d597231efed4bf6dd05b5d904de6dbcc1.xml|other|wechat
+HelloGitHub|https://wechat2rss.bestblogs.dev/feed/e6cc80b97bf64eeef61cc5927c78ba6ce3356422.xml|infra|wechat
+GitHubDaily|https://wechat2rss.bestblogs.dev/feed/5b195b2d021f8151ac4f81ceae54cd48f08b0632.xml|infra|wechat
+稀土掘金技术社区|https://wechat2rss.bestblogs.dev/feed/33ecd2122ae788ea02dfcf1df857a54b9ae1338d.xml|infra|wechat

@@ -196,8 +196,6 @@ def fetch_feed_articles(
 
         articles.append(article)
 
-        articles.append(article)
-
     logger.debug(
         "Feed %r: fetched %d entries, %d after cutoff",
         source.name, len(feed.entries), len(articles),

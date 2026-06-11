@@ -172,6 +172,7 @@ def main() -> int:
         llm_concurrency=settings.llm_concurrency,
         max_per_site=settings.digest_max_per_site,
         max_per_author=settings.digest_max_per_author,
+        min_overall_score=settings.digest_min_overall_score,
     )
     scoring_elapsed = perf_counter() - scoring_started_at
     logging.info(

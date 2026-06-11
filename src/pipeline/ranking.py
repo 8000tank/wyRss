@@ -129,6 +129,7 @@ def score_articles(
     llm_concurrency: int = 1,
     max_per_site: int = 2,
     max_per_author: int = 2,
+    min_overall_score: int = 50,
 ) -> list[ScoredArticle]:
     system_prompt = (
         "你是一名严谨的资讯编辑。"
@@ -186,6 +187,9 @@ def score_articles(
         max_per_site=max_per_site,
         max_per_author=max_per_author,
     )
+
+    # Minimum score threshold: reject articles below the configured floor.
+    results = [r for r in results if r.overall_score >= min_overall_score]
 
     return results[:top_n]
 

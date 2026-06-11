@@ -116,6 +116,7 @@ class Settings:
     digest_top_n: int
     digest_max_per_site: int
     digest_max_per_author: int
+    digest_min_overall_score: int
     digest_topic_buckets: list[str]
     digest_max_published_age_days: int
     digest_timezone: str
@@ -179,6 +180,7 @@ class Settings:
             digest_top_n=_get_int("DIGEST_TOP_N", 12),
             digest_max_per_site=_get_int("DIGEST_MAX_PER_SITE", 2),
             digest_max_per_author=_get_int("DIGEST_MAX_PER_AUTHOR", 2),
+            digest_min_overall_score=_get_int("DIGEST_MIN_OVERALL_SCORE", 50),
             digest_topic_buckets=_parse_topic_list(
                 os.getenv("DIGEST_TOPIC_BUCKETS"),
                 _DEFAULT_TOPIC_BUCKETS,

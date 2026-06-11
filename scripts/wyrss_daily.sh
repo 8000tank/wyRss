@@ -58,8 +58,18 @@ log "[2/3] 文档链接: $DOC_URL"
 
 # Step 3: 提取标题并发送飞书消息
 TITLE=$(head -1 "$MD_FILE" | sed 's/^#\s*//')
-log "[3/3] 发送飞书消息: $TITLE"
+log "[3/4] 发送飞书消息: $TITLE"
 
 $PYTHON "$SEND_MSG" --to "$FEISHU_USER" --title "$TITLE" --url "$DOC_URL" 2>>"$LOG_FILE"
+
+# Step 4: 保存到 Get笔记 AI日报知识库
+GETNOTE_SCRIPT="$WYRSS_DIR/scripts/save_to_getnote.py"
+GETNOTE_TOPIC_ID="zJKeGA4Y"
+log "[4/4] 保存到 Get笔记知识库..."
+if ! GETNOTE_OUTPUT=$($UV run python "$GETNOTE_SCRIPT" "$MD_FILE" "$GETNOTE_TOPIC_ID" 2>>"$LOG_FILE"); then
+    log "[WARN] Get笔记保存失败: $GETNOTE_OUTPUT"
+else
+    log "[4/4] Get笔记保存成功: $GETNOTE_OUTPUT"
+fi
 
 log "========== 执行成功 =========="
