@@ -3,11 +3,29 @@
 import json, sys, urllib.request, ssl, os
 
 def load_config():
-    with open(os.path.expanduser('~/.openclaw/openclaw.json')) as f:
-        cfg = json.load(f)
-    skill = cfg['skills']['entries']['getnote']
-    api_key = skill['apiKey']
-    client_id = skill['env']['GETNOTE_CLIENT_ID']
+    api_key = ''
+    client_id = ''
+
+    # API Key 优先从 secrets.json 读取
+    secrets_path = os.path.expanduser('~/.openclaw/secrets.json')
+    if os.path.exists(secrets_path):
+        with open(secrets_path, 'r') as f:
+            secrets = json.load(f)
+        entry = secrets.get('skills', {}).get('getnote', {})
+        api_key = entry.get('apiKey', '')
+
+    # Client ID 从 openclaw.json 读取
+    config_path = os.path.expanduser('~/.openclaw/openclaw.json')
+    if os.path.exists(config_path):
+        with open(config_path, 'r') as f:
+            cfg = json.load(f)
+        entry = cfg.get('skills', {}).get('entries', {}).get('getnote', {})
+        client_id = entry.get('env', {}).get('GETNOTE_CLIENT_ID', '')
+        if not api_key:
+            raw_key = entry.get('apiKey', '')
+            if isinstance(raw_key, str) and raw_key.startswith('gk_'):
+                api_key = raw_key
+
     return api_key, client_id
 
 def api(method, path, body=None):
