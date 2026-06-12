@@ -66,7 +66,7 @@ $PYTHON "$SEND_MSG" --to "$FEISHU_USER" --title "$TITLE" --url "$DOC_URL" 2>>"$L
 GETNOTE_SCRIPT="$WYRSS_DIR/scripts/save_to_getnote.py"
 GETNOTE_TOPIC_ID="zJKeGA4Y"
 log "[4/4] 保存到 Get笔记知识库..."
-if ! GETNOTE_OUTPUT=$($UV run python "$GETNOTE_SCRIPT" "$MD_FILE" "$GETNOTE_TOPIC_ID" 2>>"$LOG_FILE"); then
+if ! GETNOTE_OUTPUT=$($UV run python "$GETNOTE_SCRIPT" "$MD_FILE" "$DOC_URL" "$GETNOTE_TOPIC_ID" 2>>"$LOG_FILE"); then
     log "[WARN] Get笔记保存失败: $GETNOTE_OUTPUT"
 else
     log "[4/4] Get笔记保存成功: $GETNOTE_OUTPUT"
